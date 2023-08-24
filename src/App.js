@@ -1,5 +1,4 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
 
 function App() {
   return (
@@ -10,6 +9,6 @@ function App() {
 }
 
 function Ass() {
-  return <div>bananan</div>
+  return <div>bananan</div>;
 }
 export default App;
