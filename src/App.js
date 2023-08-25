@@ -1,14 +1,12 @@
 import "./App.css";
+import { Sidebar } from "./components/Sidebar.js";
 
 function App() {
   return (
     <div className="App">
-      <Ass />
+      <Sidebar />
     </div>
   );
 }
 
-function Ass() {
-  return <div>bananan</div>;
-}
 export default App;
