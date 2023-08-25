@@ -6,6 +6,7 @@ export function PostList() {
 	// states
 	const [posts, setPosts] = useState([]);
 	const [reactions, setReactions] = useState(0);
+	const [reactionIndicator, setreactionIndicator] = useState([false, false]);
 
 	// variables
 	const username = "atuny0";
@@ -14,13 +15,12 @@ export function PostList() {
 	// Click events
 	const handleReactionClick = (event) => {
 		const target = event.target.classList.value;
-		if (!target) {
-			return;
-		}
-		if (target.includes("positive")) {
+		if (target.includes("positive") && !reactionIndicator[0]) {
 			setReactions(reactions + 1);
-		} else {
+			setreactionIndicator([true, false]);
+		} else if (target.includes("negative") && !reactionIndicator[1]) {
 			setReactions(reactions - 1);
+			setreactionIndicator([false, true]);
 		}
 	};
 
@@ -56,13 +56,27 @@ export function PostList() {
 						<PostListButton
 							reaction="positive"
 							onClick={handleReactionClick}
-							icon={<ThumbsUp size={20} className="positive" />}
+							icon={
+								<ThumbsUp
+									size={20}
+									color={
+										reactionIndicator[0] ? "green" : "rgba(75, 76, 79, 0.8)"
+									}
+									className="positive"
+								/>
+							}
 						/>
 						<span className="post-reaction-counter">{reactions}</span>
 						<PostListButton
 							reaction="negative"
 							onClick={handleReactionClick}
-							icon={<ThumbsDown size={20} className="negative" />}
+							icon={
+								<ThumbsDown
+									size={20}
+									color={reactionIndicator[1] ? "red" : "rgba(75, 76, 79, 0.8)"}
+									className="negative"
+								/>
+							}
 						/>
 					</div>
 					<div className="post-comments">
