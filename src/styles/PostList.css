@@ -3,4 +3,47 @@
 	padding: 1rem;
 	color: white;
 	font-family: "Roboto", sans-serif;
+	border-radius: 1rem;
+	max-width: 650px;
+}
+.postlist {
+	display: flex;
+}
+.post-avatar {
+	height: 50px;
+	background-color: #2b2d32;
+	border-radius: 50px;
+}
+.post-user-container {
+	display: flex;
+	align-items: center;
+}
+
+.post-username {
+	margin-right: 1rem;
+	color: #97443d;
+	font-size: 16px;
+	font-weight: 700;
+}
+.post-title {
+	font-size: 18px;
+	font-weight: 700;
+}
+.post-body {
+	font-size: 16px;
+	font-weight: 500;
+}
+
+.post-lower {
+	margin-top: 1rem;
+	display: flex;
+	gap: 2rem;
+}
+.post-lower * {
+	background-color: #d9d9d9;
+	color: rgba(75, 76, 79, 0.8);
+	display: flex;
+	align-items: center;
+	border-radius: 15px;
+	padding: 0.3rem 0.5rem;
 }
