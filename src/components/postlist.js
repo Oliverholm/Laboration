@@ -78,12 +78,11 @@ function Post({ username, title, body, tags, reactionsImport }) {
 
 	return (
 		<div className="post">
-			<div className="post-user-container">
-				<span className="post-username">{username}</span>
-				<img className="post-avatar" src={avatarPath} />
-			</div>
-			<div className="post-upper">
-				<h3 className="post-title">{title}</h3>
+			<div className="post-top">
+				<div className="post-user-container">
+					<span className="post-username">{username}</span>
+					<img className="post-avatar" src={avatarPath} />
+				</div>
 				<div className="tag-container">
 					{tags.map((tag) => (
 						<span className="tag" key={tag}>
@@ -91,6 +90,9 @@ function Post({ username, title, body, tags, reactionsImport }) {
 						</span>
 					))}
 				</div>
+			</div>
+			<div className="post-upper">
+				<h3 className="post-title">{title}</h3>
 			</div>
 			<hr className="divider" />
 			<div className="post-body">{body}</div>
