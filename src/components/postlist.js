@@ -65,28 +65,31 @@ function PostListButton({ icon, content, onClick, reaction }) {
 function Post({ username, title, body, tags, reactionsImport }) {
 	const [reactions, setReactions] = useState(reactionsImport);
 	const [vote, setVote] = useState(0);
-	const avatarPath = `https://robohash.org/` + username;
+	const avatarPath = `https://robohash.org/` + username + "?set=set4";
 
 	// onClick funktioner
 	const increment = () => {
 		vote === 0 ? setVote(1) : setVote(0);
 	};
-
 	const decrement = () => {
 		vote === 1 ? setVote(0) : setVote(-1);
+	};
+	// uppercase funktion
+	const toUpper = (string) => {
+		return string.replace(/\b\w/g, (l) => l.toUpperCase());
 	};
 
 	return (
 		<div className="post">
 			<div className="post-top">
 				<div className="post-user-container">
-					<span className="post-username">{username}</span>
+					<span className="post-username">{toUpper(username)}</span>
 					<img className="post-avatar" src={avatarPath} />
 				</div>
 				<div className="tag-container">
 					{tags.map((tag) => (
 						<span className="tag" key={tag}>
-							{tag}
+							{toUpper(tag)}
 						</span>
 					))}
 				</div>
