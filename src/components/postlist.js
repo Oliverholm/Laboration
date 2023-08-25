@@ -59,39 +59,15 @@ function PostListButton({ icon, content, onClick, reaction }) {
 
 function Post({ username, title, body, tags, reactionsImport }) {
 	const [reactions, setReactions] = useState(reactionsImport);
-	const [reactionIndicator, setreactionIndicator] = useState([false, false]);
+	const [vote, setVote] = useState(0);
 	const avatarPath = `https://robohash.org/` + username;
 
-	// Click events
-	// behöver en reset då den får minusvärde vid klick av negativ till positiv
-	const increment = (event) => {
-		const target = event.target.classList.value;
-		if (target.includes("positive")) {
-			if (!reactionIndicator[0]) {
-				setReactions(reactions + 1);
-				setreactionIndicator([true, false]);
-			} else {
-				setReactions(reactions - 1);
-				setreactionIndicator([false, false]);
-			}
-		} else {
-			return;
-		}
+	const increment = () => {
+		vote === 0 ? setVote(1) : setVote(0);
 	};
 
-	const decrement = (event) => {
-		const target = event.target.classList.value;
-		if (target.includes("negative")) {
-			if (!reactionIndicator[1]) {
-				setReactions(reactions - 1);
-				setreactionIndicator([false, true]);
-			} else {
-				setReactions(reactions + 1);
-				setreactionIndicator([false, false]);
-			}
-		} else {
-			return;
-		}
+	const decrement = () => {
+		vote === 1 ? setVote(0) : setVote(-1);
 	};
 
 	return (
@@ -113,19 +89,19 @@ function Post({ username, title, body, tags, reactionsImport }) {
 						icon={
 							<ThumbsUp
 								size={20}
-								color={reactionIndicator[0] ? "green" : "rgba(75, 76, 79, 0.8)"}
+								color={vote === 1 ? "green" : "rgba(75, 76, 79, 0.8)"}
 								className="positive"
 							/>
 						}
 					/>
-					<span className="post-reaction-counter">{reactions}</span>
+					<span className="post-reaction-counter">{reactions + vote}</span>
 					<PostListButton
 						reaction="negative"
 						onClick={decrement}
 						icon={
 							<ThumbsDown
 								size={20}
-								color={reactionIndicator[1] ? "red" : "rgba(75, 76, 79, 0.8)"}
+								color={vote === -1 ? "red" : "rgba(75, 76, 79, 0.8)"}
 								className="negative"
 							/>
 						}
