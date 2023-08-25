@@ -3,10 +3,26 @@ import "../styles/PostList.css";
 import { ThumbsUp, ThumbsDown, MessageSquare } from "react-feather";
 
 export function PostList() {
+	// states
 	const [posts, setPosts] = useState([]);
+	const [reactions, setReactions] = useState(0);
+
+	// variables
 	const username = "atuny0";
 	const avatarPath = `https://robohash.org/` + username;
-	const reactions = 20;
+
+	// Click events
+	const handleReactionClick = (event) => {
+		const target = event.target.classList.value;
+		if (!target) {
+			return;
+		}
+		if (target.includes("positive")) {
+			setReactions(reactions + 1);
+		} else {
+			setReactions(reactions - 1);
+		}
+	};
 
 	const getPosts = () => {
 		fetchPosts().then((posts) => {
@@ -37,13 +53,24 @@ export function PostList() {
 				</div>
 				<div className="post-lower">
 					<div className="post-reactions">
-						<ThumbsUp size={20} />
+						<PostListButton
+							reaction="positive"
+							onClick={handleReactionClick}
+							icon={<ThumbsUp size={20} className="positive" />}
+						/>
 						<span className="post-reaction-counter">{reactions}</span>
-						<ThumbsDown size={20} />
+						<PostListButton
+							reaction="negative"
+							onClick={handleReactionClick}
+							icon={<ThumbsDown size={20} className="negative" />}
+						/>
 					</div>
 					<div className="post-comments">
-						<MessageSquare size={20} />
-						<span>Comments</span>
+						<PostListButton
+							icon={<MessageSquare size={20} />}
+							content="Comments"
+							id={3}
+						/>
 					</div>
 				</div>
 			</div>
@@ -55,4 +82,19 @@ async function fetchPosts() {
 	let result = await fetch("https://dummyjson.com/posts");
 	let posts = await result.json;
 	return posts;
+}
+
+function PostListButton({ icon, content, onClick, reaction }) {
+	if (!content)
+		return (
+			<button className={"postlist-button " + reaction} onClick={onClick}>
+				{icon}
+			</button>
+		);
+	else
+		return (
+			<button className="postlist-button">
+				{icon} <span className="postlist-button-content">{content}</span>
+			</button>
+		);
 }
