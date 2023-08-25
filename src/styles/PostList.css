@@ -10,6 +10,7 @@
 .postlist {
 	display: flex;
 	flex-direction: column;
+	align-items: center;
 }
 .post-avatar {
 	height: 50px;

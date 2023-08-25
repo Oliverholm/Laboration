@@ -2,22 +2,26 @@ import { useEffect, useState } from "react";
 import "../styles/PostList.css";
 import { ThumbsUp, ThumbsDown, MessageSquare } from "react-feather";
 
-async function getPosts() {
-	let result = await fetch("https://dummyjson.com/posts");
-	let posts = await result.json();
-	return posts;
-}
-
+// Main Komponent
 export function PostList() {
 	const [posts, setPosts] = useState([]);
+	const [users, setUsers] = useState([]);
 	const fetchPosts = () => {
 		getPosts().then((posts) => {
 			setPosts(posts.posts);
 		});
 	};
+	const fetchUsers = () => {
+		getUsers().then((users) => {
+			setUsers(users.users);
+		});
+	};
+
 	useEffect(() => {
 		fetchPosts();
+		fetchUsers();
 	}, []);
+
 	return (
 		<main className="postlist">
 			{posts.length === 0 ? (
@@ -29,7 +33,7 @@ export function PostList() {
 					return (
 						<Post
 							key={i}
-							username={post.userId}
+							username={users[post.userId - 1].username}
 							title={post.title}
 							body={post.body}
 							tags={post.tags}
@@ -42,6 +46,7 @@ export function PostList() {
 	);
 }
 
+// Komponenter
 function PostListButton({ icon, content, onClick, reaction }) {
 	if (!content)
 		return (
@@ -62,6 +67,7 @@ function Post({ username, title, body, tags, reactionsImport }) {
 	const [vote, setVote] = useState(0);
 	const avatarPath = `https://robohash.org/` + username;
 
+	// onClick funktioner
 	const increment = () => {
 		vote === 0 ? setVote(1) : setVote(0);
 	};
@@ -116,4 +122,17 @@ function Post({ username, title, body, tags, reactionsImport }) {
 			</div>
 		</div>
 	);
+}
+
+// fetch
+async function getPosts() {
+	let result = await fetch("https://dummyjson.com/posts");
+	let posts = await result.json();
+	return posts;
+}
+
+async function getUsers() {
+	let result = await fetch("https://dummyjson.com/users?limit=0");
+	let users = await result.json();
+	return users;
 }
