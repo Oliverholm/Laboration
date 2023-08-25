@@ -9,12 +9,11 @@ async function getPosts() {
 }
 
 export function PostList() {
-	// states
 	const [posts, setPosts] = useState([]);
-
-	// variables
 	const fetchPosts = () => {
-		setPosts(posts.posts);
+		getPosts().then((posts) => {
+			setPosts(posts.posts);
+		});
 	};
 	useEffect(() => {
 		fetchPosts();
@@ -26,9 +25,10 @@ export function PostList() {
 					<p>Posts haven't loaded yet...</p>
 				</div>
 			) : (
-				posts.map((post) => {
+				posts.map((post, i) => {
 					return (
 						<Post
+							key={i}
 							username={post.userId}
 							title={post.title}
 							body={post.body}
