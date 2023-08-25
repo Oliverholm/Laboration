@@ -24,7 +24,7 @@ export function PostList() {
 
 	return (
 		<main className="postlist">
-			{posts.length === 0 ? (
+			{posts.length === 0 || users.length === 0 ? (
 				<div className="post-placeholder">
 					<p>Posts haven't loaded yet...</p>
 				</div>
