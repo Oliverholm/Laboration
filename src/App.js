@@ -1,14 +1,12 @@
 import "./App.css";
+import { PostList } from "./components/PostList";
 
 function App() {
-  return (
-    <div className="App">
-      <Ass />
-    </div>
-  );
+	return (
+		<div className="App">
+			<PostList />
+		</div>
+	);
 }
 
-function Ass() {
-  return <div>bananan</div>;
-}
 export default App;
