@@ -26,7 +26,7 @@ export function PostList() {
 		<main className="postlist">
 			{posts.length === 0 || users.length === 0 ? (
 				<div className="post-placeholder">
-					<p>Posts haven't loaded yet...</p>
+					<h3>Posts haven't loaded yet...</h3>
 				</div>
 			) : (
 				posts.map((post, i) => {
@@ -84,6 +84,13 @@ function Post({ username, title, body, tags, reactionsImport }) {
 			</div>
 			<div className="post-upper">
 				<h3 className="post-title">{title}</h3>
+				<div className="tag-container">
+					{tags.map((tag) => (
+						<span className="tag" key={tag}>
+							{tag}
+						</span>
+					))}
+				</div>
 			</div>
 			<hr className="divider" />
 			<div className="post-body">{body}</div>
