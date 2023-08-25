@@ -1,14 +1,13 @@
 import "./App.css";
+import NavBar from "./components/navbar";
 
 function App() {
   return (
     <div className="App">
-      <Ass />
+      <NavBar />
     </div>
   );
 }
 
-function Ass() {
-  return <div>bananan</div>;
-}
+
 export default App;
