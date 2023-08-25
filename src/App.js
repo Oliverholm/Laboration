@@ -5,7 +5,7 @@ import { PostList } from "./components/PostList";
 function App() {
 	return (
 		<div className="App">
-      <NavBar />
+			<NavBar />
 			<PostList />
 		</div>
 	);
