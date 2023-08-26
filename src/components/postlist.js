@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import "../styles/PostList.css";
-import { ThumbsUp, ThumbsDown, MessageSquare } from "react-feather";
+import { ArrowUp, ArrowDown, MessageSquare } from "react-feather";
 
 // Main Komponent
 export function PostList() {
 	const [posts, setPosts] = useState([]);
 	const [users, setUsers] = useState([]);
+	const [comments, setComments] = useState([]);
 	const fetchPosts = () => {
 		getPosts().then((posts) => {
 			setPosts(posts.posts);
@@ -16,10 +17,17 @@ export function PostList() {
 			setUsers(users.users);
 		});
 	};
+	const fetchComments = () => {
+		getComments().then((comments) => {
+			setComments(comments);
+			console.log(comments);
+		});
+	};
 
 	useEffect(() => {
 		fetchPosts();
 		fetchUsers();
+		fetchComments();
 	}, []);
 
 	return (
@@ -33,11 +41,13 @@ export function PostList() {
 					return (
 						<Post
 							key={i}
+							postId={post.id}
 							username={users[post.userId - 1].username}
 							title={post.title}
 							body={post.body}
 							tags={post.tags}
 							reactionsImport={post.reactions}
+							commentsImport={comments.total}
 						/>
 					);
 				})
@@ -62,17 +72,26 @@ function PostListButton({ icon, content, onClick, reaction }) {
 		);
 }
 
-function Post({ username, title, body, tags, reactionsImport }) {
+function Post({
+	postId,
+	username,
+	title,
+	body,
+	tags,
+	reactionsImport,
+	commentsImport,
+}) {
 	const [reactions, setReactions] = useState(reactionsImport);
 	const [vote, setVote] = useState(0);
 	const avatarPath = `https://robohash.org/` + username + "?set=set4";
+	const regularColor = "rgba(75, 76, 79, 0.8)";
 
 	// onClick funktioner
 	const increment = () => {
 		vote === 0 ? setVote(1) : setVote(0);
 	};
 	const decrement = () => {
-		vote === 1 ? setVote(0) : setVote(-1);
+		vote === -1 ? setVote(0) : setVote(-1);
 	};
 	// uppercase funktion
 	const toUpper = (string) => {
@@ -83,8 +102,8 @@ function Post({ username, title, body, tags, reactionsImport }) {
 		<div className="post">
 			<div className="post-top">
 				<div className="post-user-container">
-					<span className="post-username">{toUpper(username)}</span>
 					<img className="post-avatar" src={avatarPath} />
+					<span className="post-username">Posted by: {toUpper(username)}</span>
 				</div>
 				<div className="tag-container">
 					{tags.map((tag) => (
@@ -105,9 +124,9 @@ function Post({ username, title, body, tags, reactionsImport }) {
 						reaction="positive"
 						onClick={increment}
 						icon={
-							<ThumbsUp
+							<ArrowUp
 								size={20}
-								color={vote === 1 ? "green" : "rgba(75, 76, 79, 0.8)"}
+								color={vote === 1 ? "green" : regularColor}
 								className="positive"
 							/>
 						}
@@ -117,9 +136,9 @@ function Post({ username, title, body, tags, reactionsImport }) {
 						reaction="negative"
 						onClick={decrement}
 						icon={
-							<ThumbsDown
+							<ArrowDown
 								size={20}
-								color={vote === -1 ? "red" : "rgba(75, 76, 79, 0.8)"}
+								color={vote === -1 ? "red" : regularColor}
 								className="negative"
 							/>
 						}
@@ -128,7 +147,7 @@ function Post({ username, title, body, tags, reactionsImport }) {
 				<div className="post-comments">
 					<PostListButton
 						icon={<MessageSquare size={20} />}
-						content="Comments"
+						content={commentsImport}
 					/>
 				</div>
 			</div>
@@ -147,4 +166,9 @@ async function getUsers() {
 	let result = await fetch("https://dummyjson.com/users?limit=0");
 	let users = await result.json();
 	return users;
+}
+async function getComments() {
+	let result = await fetch("https://dummyjson.com/comments?limit=0");
+	let comments = await result.json();
+	return comments;
 }
