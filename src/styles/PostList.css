@@ -1,9 +1,9 @@
 .post,
 .post-placeholder {
-	background-color: #4b4c4f;
+	background-color: var(--light-gray);
 	margin: 1rem;
 	padding: 1rem;
-	color: white;
+	color: var(--white);
 	font-family: "Roboto", sans-serif;
 	border-radius: 1rem;
 	max-width: 650px;
@@ -25,7 +25,7 @@
 .post-avatar {
 	margin-right: 1rem;
 	height: 50px;
-	background-color: #2b2d32;
+	background-color: var(--bg-color);
 	border-radius: 50px;
 }
 .post-user-container {
@@ -38,7 +38,7 @@
 	align-items: center;
 }
 .post-username {
-	color: #bbb2a9;
+	color: var(--shadow-gray);
 	font-size: 1rem;
 	font-weight: 700;
 }
@@ -46,7 +46,7 @@
 .tag {
 	margin: 5px;
 	padding: 0.5rem 1rem;
-	border: 1px solid white;
+	border: 1px solid var(--white);
 	border-radius: 15px;
 	user-select: none;
 }
@@ -64,12 +64,12 @@
 .post-lower {
 	margin-top: 1rem;
 	display: flex;
-	align-items: end;
+	align-items: flex-end;
 	gap: 1.5rem;
 }
 .post-lower * {
-	background-color: #d9d9d9;
-	color: rgba(75, 76, 79, 0.8);
+	background-color: var(--white);
+	color: var(--icon-faded);
 	display: flex;
 	align-items: center;
 	border-radius: 15px;
@@ -80,7 +80,7 @@
 	all: unset;
 	display: flex;
 	cursor: pointer;
-	color: rgba(75, 76, 79, 0.8);
+	color: var(--icon-faded);
 }
 
 .postlist-button-content {
