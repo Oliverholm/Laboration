@@ -7,6 +7,7 @@ export function PostList() {
 	const [posts, setPosts] = useState([]);
 	const [users, setUsers] = useState([]);
 	const [comments, setComments] = useState([]);
+	const [postUserId, setpostUserId] = useState();
 	const fetchPosts = () => {
 		getPosts().then((posts) => {
 			setPosts(posts.posts);
@@ -20,7 +21,6 @@ export function PostList() {
 	const fetchComments = () => {
 		getComments().then((comments) => {
 			setComments(comments);
-			console.log(comments);
 		});
 	};
 
@@ -42,6 +42,8 @@ export function PostList() {
 						<Post
 							key={i}
 							postId={post.id}
+							userId={post.userId}
+							setpostUserId={setpostUserId}
 							username={users[post.userId - 1].username}
 							title={post.title}
 							body={post.body}
@@ -60,7 +62,7 @@ export function PostList() {
 function PostListButton({ icon, content, onClick, reaction }) {
 	if (!content)
 		return (
-			<button className={"postlist-button " + reaction} onClick={onClick}>
+			<button className={"postlist-button"} onClick={onClick}>
 				{icon}
 			</button>
 		);
@@ -74,6 +76,8 @@ function PostListButton({ icon, content, onClick, reaction }) {
 
 function Post({
 	postId,
+	userId,
+	setpostUserId,
 	username,
 	title,
 	body,
@@ -87,10 +91,10 @@ function Post({
 	const regularColor = "rgba(75, 76, 79, 0.8)";
 
 	// onClick funktioner
-	const increment = () => {
+	const upvote = () => {
 		vote === 0 ? setVote(1) : setVote(0);
 	};
-	const decrement = () => {
+	const downvote = () => {
 		vote === -1 ? setVote(0) : setVote(-1);
 	};
 	// uppercase funktion
@@ -98,12 +102,24 @@ function Post({
 		return string.replace(/\b\w/g, (l) => l.toUpperCase());
 	};
 
+	const handleUsernameClick = () => {
+		setpostUserId(userId);
+		fetch("https://dummyjson.com/posts/user/" + userId)
+			.then((res) => res.json())
+			.then(console.log);
+	};
+
 	return (
 		<div className="post">
 			<div className="post-top">
 				<div className="post-user-container">
 					<img className="post-avatar" src={avatarPath} />
-					<span className="post-username">Posted by: {toUpper(username)}</span>
+					<span className="post-username">
+						Posted by:{" "}
+						<a onClick={handleUsernameClick} className="post-username-anchor">
+							{toUpper(username)}
+						</a>
+					</span>
 				</div>
 				<div className="tag-container">
 					{tags.map((tag) => (
@@ -122,7 +138,7 @@ function Post({
 				<div className="post-reactions">
 					<PostListButton
 						reaction="positive"
-						onClick={increment}
+						onClick={upvote}
 						icon={
 							<ArrowUp
 								size={20}
@@ -134,7 +150,7 @@ function Post({
 					<span className="post-reaction-counter">{reactions + vote}</span>
 					<PostListButton
 						reaction="negative"
-						onClick={decrement}
+						onClick={downvote}
 						icon={
 							<ArrowDown
 								size={20}

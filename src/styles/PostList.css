@@ -25,7 +25,7 @@
 .post-avatar {
 	margin-right: 1rem;
 	height: 50px;
-	background-color: var(--bg-color);
+	background-color: var(--dark-gray);
 	border-radius: 50px;
 }
 .post-user-container {
@@ -41,6 +41,12 @@
 	color: var(--shadow-gray);
 	font-size: 1rem;
 	font-weight: 700;
+}
+.post-username-anchor {
+	color: var(--Redwood);
+}
+.post-username-anchor:hover {
+	border-bottom: 1px solid var(--Redwood);
 }
 
 .tag {
@@ -87,4 +93,12 @@
 	font-family: "Roboto", sans-serif;
 	font-size: 1rem;
 	font-weight: 500;
+}
+
+.positive:active {
+	background: rgba(0, 128, 0, 0.267);
+}
+
+.negative:active {
+	background: rgba(255, 0, 0, 0.267);
 }
