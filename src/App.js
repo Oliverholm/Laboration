@@ -1,15 +1,15 @@
-import logo from './logo.svg';
-import './App.css';
-
+import "./App.css";
+import { CreatePostComponent } from "./components/createpost";
+import { Sidebar } from "./components/sidebar.js";
+import NavBar from "./components/navbar";
+import { PostList } from "./components/postlist";
 function App() {
   return (
     <div className="App">
-      <Ass />
+      <NavBar />
+      <Sidebar />
     </div>
   );
 }
 
-function Ass() {
-  return <div>bananan</div>
-}
 export default App;
