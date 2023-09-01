@@ -39,6 +39,30 @@ export function Sidebar() {
           ))}
         </ul>
       </section>
+      <section>
+        <hr className="bottom-border" />
+        <div className="sb-resources">
+          <h3 id="titles">Resources</h3>
+          <ul>
+            <li className="sb-options">{SBCIcon}&nbsp;&nbsp;About PSQ</li>
+          </ul>
+        </div>
+      </section>
+      <div className="sb-footer">
+        <a
+          href="https://github.com/Oliverholm/Laboration"
+          className="github-logo icon"
+        >
+          {<GitHub />}
+        </a>
+
+        <hr className="bottom-border" />
+      </div>
+      <footer>
+        <span>
+          Public Square 2023 <br></br>All rights reserved
+        </span>
+      </footer>
     </div>
   );
 }
