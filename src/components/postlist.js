@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import "../styles/PostList.css";
-import { ArrowUp, ArrowDown, MessageSquare } from "react-feather";
+import { ArrowUp, ArrowDown, MessageSquare, Flag, X } from "react-feather";
+import { reportList } from "../utils/constants";
 
 // Main Komponent
 export function PostList() {
@@ -8,6 +9,7 @@ export function PostList() {
 	const [users, setUsers] = useState([]);
 	const [comments, setComments] = useState([]);
 	const [postUserId, setpostUserId] = useState();
+	const [openModal, setOpenModal] = useState(true);
 	const fetchPosts = () => {
 		getPosts().then((posts) => {
 			setPosts(posts.posts);
@@ -31,34 +33,55 @@ export function PostList() {
 	}, []);
 
 	return (
-		<main className="postlist">
-			{posts.length === 0 || users.length === 0 ? (
-				<div className="post-placeholder">
-					<h3>Posts haven't loaded yet...</h3>
-				</div>
-			) : (
-				posts.map((post, i) => {
-					return (
-						<Post
-							key={i}
-							postId={post.id}
-							userId={post.userId}
-							setpostUserId={setpostUserId}
-							username={users[post.userId - 1].username}
-							title={post.title}
-							body={post.body}
-							tags={post.tags}
-							reactionsImport={post.reactions}
-							commentsImport={comments.total}
-						/>
-					);
-				})
-			)}
-		</main>
+		<>
+			<ReportModal open={openModal} />
+			<main className="postlist">
+				{posts.length === 0 || users.length === 0 ? (
+					<div className="post-placeholder">
+						<h3>Posts haven't loaded yet...</h3>
+					</div>
+				) : (
+					posts.map((post, i) => {
+						return (
+							<Post
+								key={i}
+								postId={post.id}
+								userId={post.userId}
+								setpostUserId={setpostUserId}
+								username={users[post.userId - 1].username}
+								title={post.title}
+								body={post.body}
+								tags={post.tags}
+								reactionsImport={post.reactions}
+								commentsImport={comments.total}
+							/>
+						);
+					})
+				)}
+			</main>
+		</>
+	);
+}
+// Komponenter
+function ReportModal({ open }) {
+	if (!open) return null;
+	return (
+		<div className="overlay">
+			<div className="modalContainer">
+				<h3>Submit a report</h3>
+				<X size={20} />
+				<ReportModalButton />
+			</div>
+		</div>
 	);
 }
 
-// Komponenter
+function ReportModalButton() {
+	console.table(reportList);
+	return reportList.map((item) => {
+		return <button>{item.reportLabel}</button>;
+	});
+}
 function PostListButton({ icon, content, onClick, reaction }) {
 	if (!content)
 		return (
@@ -110,7 +133,7 @@ function Post({
 	};
 
 	return (
-		<div className="post">
+		<article className="post">
 			<div className="post-top">
 				<div className="post-user-container">
 					<img className="post-avatar" src={avatarPath} />
@@ -166,8 +189,11 @@ function Post({
 						content={commentsImport}
 					/>
 				</div>
+				<div className="post-report">
+					<PostListButton icon={<Flag size={20} />} content="Report" />
+				</div>
 			</div>
-		</div>
+		</article>
 	);
 }
 
@@ -183,6 +209,7 @@ async function getUsers() {
 	let users = await result.json();
 	return users;
 }
+
 async function getComments() {
 	let result = await fetch("https://dummyjson.com/comments?limit=0");
 	let comments = await result.json();
