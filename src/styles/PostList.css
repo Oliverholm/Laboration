@@ -102,3 +102,80 @@
 .negative:active {
 	background: rgba(255, 0, 0, 0.267);
 }
+
+.report-label-button {
+	all: unset;
+	background-color: var(--white);
+	color: black;
+	padding: 12px 19px;
+	max-width: fit-content;
+	border-radius: 1rem;
+	font-family: "Roboto", sans-serif;
+}
+.report-label-button:hover {
+	background-color: var(--Redwood);
+	color: var(--white);
+	cursor: pointer;
+}
+
+.modal-container {
+	position: absolute;
+	background-color: var(--light-gray);
+	border-radius: 1rem;
+	padding: 1rem 2rem;
+	color: var(--white);
+	width: 32rem;
+	font-family: "Roboto", sans-serif;
+	box-shadow: inset 0px 0px 0px 2px #bbb2a9;
+}
+
+.report-modal-top {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+.report-modal-button-wrapper {
+	display: flex;
+	align-items: flex-start;
+	align-content: flex-start;
+	gap: 11px;
+	flex-wrap: wrap;
+}
+
+.overlay {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: absolute;
+	width: 100vw;
+	height: 100vh;
+	background: rgba(0, 0, 0, 0.514);
+}
+
+.about-report {
+	margin: 1rem 0;
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-end;
+	height: fit-content;
+}
+
+.modal-report-button,
+.modal-disabled-report-button {
+	all: unset;
+	padding: 0.5rem 1rem;
+	margin-bottom: 1rem;
+	text-align: center;
+	background-color: var(--Redwood);
+	border-radius: 1rem;
+	cursor: pointer;
+}
+.modal-disabled-report-button {
+	background-color: var(--shadow-gray);
+	cursor: not-allowed;
+}
+
+.about-report-p {
+	max-width: 80%;
+	color: var(--shadow-gray);
+}

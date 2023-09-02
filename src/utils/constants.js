@@ -1,50 +1,52 @@
 export const reportList = [
 	{
-		reportLabel: "breaking community rules",
-		reportDescription: "Short description of report",
+		reportLabel: "Breaking community rules",
+		reportDescription:
+			"Posts, comments, or behavior that violates the Community Standards.",
 	},
 	{
 		reportLabel: "Harassment",
-		reportDescription: "Short description of report",
-	},
-	{
-		reportLabel: "Spam",
-		reportDescription: "Short description of report",
+		reportDescription:
+			"Harass, bully, threaten or mistreat a person or group of persons in order to discourage them from participating.",
 	},
 	{
 		reportLabel: "Threats of violence",
-		reportDescription: "Short description of report",
+		reportDescription:
+			"Encourage, glorify, or incite violence or physical harm against individuals or groups of people, places, or animals.",
 	},
 	{
 		reportLabel: "Hate",
-		reportDescription: "Short description of report",
+		reportDescription:
+			"Promotion of hatred or incitement to violence on the basis of identity or vulnerability.",
 	},
 	{
-		reportLabel: "identity abuse",
-		reportDescription: "Short description of report",
-	},
-	{
-		reportLabel: "Minor abuse or sexualization",
-		reportDescription: "Short description of report",
+		reportLabel: "Identity abuse",
+		reportDescription:
+			"Impersonating a person or organization in a misleading or fraudulent manner. This includes deepfakes, manipulated content, or fake attribution.",
 	},
 	{
 		reportLabel: "Sharing of Personal Information",
-		reportDescription: "Short description of report",
+		reportDescription:
+			"Sharing or threatening to share private, personal or confidential information about someone.",
 	},
 	{
-		reportLabel: "Trademark Infringement",
-		reportDescription: "Short description of report",
-	},
-	{
-		reportLabel: "Non-consensual intimate media material",
-		reportDescription: "Short description of report",
+		reportLabel: "Trademark infringement",
+		reportDescription:
+			"Content posted on Reddit that infringes trademark on something that you own or are responsible for. (Note! Only the trademark owner or an authorized representative can submit a report.)",
 	},
 	{
 		reportLabel: "Copyright infringement",
-		reportDescription: "Short description of report",
+		reportDescription:
+			"Content posted on Reddit that infringes a copyright that you own or control. (Note! Only the copyright owner or an authorized agent can submit a report.)",
 	},
 	{
 		reportLabel: "Prohibited Transaction",
-		reportDescription: "Short description of report",
+		reportDescription:
+			"Requesting or enabling transactions or gifts of illegal or prohibited goods and services.",
+	},
+	{
+		reportLabel: "Spam",
+		reportDescription:
+			"Repetitive, unsolicited, or unsolicited manual or automated actions that negatively impact redditers, communities, and the Reddit platform.",
 	},
 ];

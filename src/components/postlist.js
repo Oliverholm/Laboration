@@ -34,7 +34,7 @@ export function PostList() {
 
 	return (
 		<>
-			<ReportModal open={openModal} />
+			<ReportModal open={openModal} setOpen={setOpenModal} />
 			<main className="postlist">
 				{posts.length === 0 || users.length === 0 ? (
 					<div className="post-placeholder">
@@ -63,26 +63,70 @@ export function PostList() {
 	);
 }
 // Komponenter
-function ReportModal({ open }) {
+function ReportModal({ open, setOpen }) {
+	const [selectedReport, setSelectedReport] = useState();
+	const aboutReport = selectedReport ? (
+		<div className="about-report">
+			<div>
+				<h3>{selectedReport.reportLabel}</h3>
+				<p className="about-report-p">{selectedReport.reportDescription}</p>
+			</div>
+			<div>
+				<button
+					className="modal-report-button"
+					onClick={() => {
+						setOpen(false);
+					}}
+				>
+					Report
+				</button>
+			</div>
+		</div>
+	) : (
+		<div className="about-report">
+			<div>
+				<h3>Select Reason.</h3>
+			</div>
+			<div>
+				<button className="modal-disabled-report-button">Report</button>
+			</div>
+		</div>
+	);
 	if (!open) return null;
 	return (
 		<div className="overlay">
-			<div className="modalContainer">
-				<h3>Submit a report</h3>
-				<X size={20} />
-				<ReportModalButton />
+			<div className="modal-container">
+				<div className="report-modal-top">
+					<h3>Submit a report</h3>
+					<X size={20} />
+				</div>
+				<ReportModalButton set={setSelectedReport} />
+				<div>{aboutReport}</div>
 			</div>
 		</div>
 	);
 }
 
-function ReportModalButton() {
-	console.table(reportList);
-	return reportList.map((item) => {
-		return <button>{item.reportLabel}</button>;
-	});
+function ReportModalButton({ set }) {
+	return (
+		<div className="report-modal-button-wrapper">
+			{reportList.map((item) => {
+				return (
+					<button
+						key={item}
+						className="report-label-button"
+						onClick={() => {
+							set(item);
+						}}
+					>
+						{item.reportLabel}
+					</button>
+				);
+			})}
+		</div>
+	);
 }
-function PostListButton({ icon, content, onClick, reaction }) {
+function PostListButton({ icon, content, onClick }) {
 	if (!content)
 		return (
 			<button className={"postlist-button"} onClick={onClick}>
