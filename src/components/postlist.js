@@ -22,6 +22,7 @@ export function PostList() {
 	};
 	const fetchComments = () => {
 		getComments().then((comments) => {
+			// sätter state:n till bara comments istället för comments.comments för jag använder comments.total
 			setComments(comments);
 		});
 	};
@@ -45,6 +46,7 @@ export function PostList() {
 						return (
 							<Post
 								key={i}
+								post={post}
 								postId={post.id}
 								userId={post.userId}
 								setpostUserId={setpostUserId}
@@ -98,23 +100,39 @@ function ReportModal({ open, setOpen }) {
 			<div className="modal-container">
 				<div className="report-modal-top">
 					<h3>Submit a report</h3>
-					<X size={20} />
+					<X
+						className="close"
+						size={20}
+						onClick={() => {
+							setOpen(false);
+						}}
+					/>
 				</div>
-				<ReportModalButton set={setSelectedReport} />
+				<ReportModalButton
+					set={setSelectedReport}
+					selectedReport={selectedReport}
+				/>
 				<div>{aboutReport}</div>
 			</div>
 		</div>
 	);
 }
 
-function ReportModalButton({ set }) {
+function ReportModalButton({ set, selectedReport }) {
+	function classChanger(item) {
+		if (item === selectedReport) {
+			return "report-label-button selected";
+		} else {
+			return "report-label-button";
+		}
+	}
 	return (
 		<div className="report-modal-button-wrapper">
-			{reportList.map((item) => {
+			{reportList.map((item, i) => {
 				return (
 					<button
-						key={item}
-						className="report-label-button"
+						key={i}
+						className={classChanger(item)}
 						onClick={() => {
 							set(item);
 						}}
@@ -143,6 +161,7 @@ function PostListButton({ icon, content, onClick }) {
 
 function Post({
 	postId,
+	post,
 	userId,
 	setpostUserId,
 	username,
@@ -158,10 +177,12 @@ function Post({
 	const regularColor = "rgba(75, 76, 79, 0.8)";
 
 	// onClick funktioner
-	const upvote = () => {
+	const upvote = (e) => {
+		e.stopPropagation();
 		vote === 0 ? setVote(1) : setVote(0);
 	};
-	const downvote = () => {
+	const downvote = (e) => {
+		e.stopPropagation();
 		vote === -1 ? setVote(0) : setVote(-1);
 	};
 	// uppercase funktion
@@ -169,7 +190,8 @@ function Post({
 		return string.replace(/\b\w/g, (l) => l.toUpperCase());
 	};
 
-	const handleUsernameClick = () => {
+	const handleUsernameClick = (e) => {
+		e.stopPropagation();
 		setpostUserId(userId);
 		fetch("https://dummyjson.com/posts/user/" + userId)
 			.then((res) => res.json())
@@ -177,13 +199,21 @@ function Post({
 	};
 
 	return (
-		<article className="post">
+		<article
+			className="post"
+			onClick={() => {
+				console.log(post);
+			}}
+		>
 			<div className="post-top">
 				<div className="post-user-container">
 					<img className="post-avatar" src={avatarPath} />
 					<span className="post-username">
 						Posted by:{" "}
-						<a onClick={handleUsernameClick} className="post-username-anchor">
+						<a
+							onClick={(e) => handleUsernameClick(e)}
+							className="post-username-anchor"
+						>
 							{toUpper(username)}
 						</a>
 					</span>
@@ -205,7 +235,9 @@ function Post({
 				<div className="post-reactions">
 					<PostListButton
 						reaction="positive"
-						onClick={upvote}
+						onClick={(e) => {
+							upvote(e);
+						}}
 						icon={
 							<ArrowUp
 								size={20}
@@ -217,7 +249,9 @@ function Post({
 					<span className="post-reaction-counter">{reactions + vote}</span>
 					<PostListButton
 						reaction="negative"
-						onClick={downvote}
+						onClick={(e) => {
+							downvote(e);
+						}}
 						icon={
 							<ArrowDown
 								size={20}

@@ -147,7 +147,7 @@
 	justify-content: center;
 	align-items: center;
 	position: absolute;
-	width: 100vw;
+	width: 99vw;
 	height: 100vh;
 	background: rgba(0, 0, 0, 0.514);
 }
@@ -178,4 +178,13 @@
 .about-report-p {
 	max-width: 80%;
 	color: var(--shadow-gray);
+}
+
+.close {
+	cursor: pointer;
+}
+
+.selected {
+	background-color: var(--Redwood);
+	color: var(--white);
 }
