@@ -2,3 +2,28 @@ body {
   color: white;
   font-size: 4rem;
 }
+.create-post-wrapper {
+  background-color: #4b4c4f;
+  padding: 1rem;
+  color: white;
+  font-family: "Roboto", sans-serif;
+  display: flex;
+  gap: 1rem;
+  border: 2px solid white;
+}
+
+#create-post-id-input {
+  width: 25rem;
+  color: white;
+  background-color: black;
+  border: 2px solid white;
+  border-radius: 0.25rem;
+}
+
+#create-post-id-btn-img,
+#create-post-id-btn-link {
+  color: white;
+  background-color: black;
+  border: 2px solid white;
+  border-radius: 0.25rem;
+}
