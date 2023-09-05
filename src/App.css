@@ -1,6 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap");
 .logo-nav {
-    font-family: 'Black Ops One', cursive;
-    font-weight: 400;
-    font-size: 3rem;
+  font-family: "Black Ops One", cursive;
+  font-weight: 400;
+  font-size: 3rem;
+  color: aliceblue;
 }
