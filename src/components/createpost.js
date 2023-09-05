@@ -1,7 +1,7 @@
 // Jacob's componenets
 import React, { useState } from "react";
 import { Meh } from "react-feather";
-import { useState } from "react";
+
 import {
   ROUTE_HOME,
   ROUTE_POST,
@@ -10,8 +10,6 @@ import {
   INPUT_PAGE_LINK,
 } from "../utils/constants";
 import "../styles/CreatePost.css";
-import "../styles/CreatePost.css";
-import { useState } from "react";
 
 /*
 function UserListCreatePost() {
@@ -69,48 +67,109 @@ export function CreatePostComponent() {
       } else return;
     }
     
-    */
 
-// TEST
-
-export function CreatePostComponent() {
-  <div>
-    <p>hej</p>
-  </div>;
-}
-
-export function FullpageCreatePostComponent() {
-  const [postView, setPostView] = useState("post");
-  let content;
-  if (content === "post") {
-    return <div>Post</div>;
-  } else if (content === "img") {
-    return <div>img</div>;
-  } else {
-    return;
-    <div>Link</div>;
-  }
-
-  return (
-    <div className="create-post-wrapper">
-      <section className="create-post-f-section-header">
+    
+    export function CreatePostComponent() {
+      <div>
+      <p>hej</p>
+      </div>;
+    }
+    
+    export function FullpageCreatePostComponent() {
+      const [postView, setPostView] = useState("post");
+      let content;
+      if (content === "post") {
+        return <div>Post</div>;
+      } else if (content === "img") {
+        return <div>img</div>;
+      } else {
+        return;
+        <div>Link</div>;
+      }
+      
+      return (
+        <div className="create-post-wrapper">
+        <section className="create-post-f-section-header">
         <h2>Create a Post</h2>
-      </section>
-      <section>
+        </section>
+        <section>
         <FullpagePost title="Post" placeholder="" />
         <FullpagePost title="Image" placeholder="" />
         <FullpagePost title="Link" placeholder="" />
-      </section>
-    </div>
+        </section>
+        </div>
+        );
+      }
+      
+      function FullpagePost({ title, placeholder }) {
+        return (
+          <div>
+          <h4>{title}</h4>
+          <textarea placeholder={placeholder}></textarea>
+          <p>add tags:</p>
+          </div>
+          );
+        }
+        */
+
+//TESTAREA
+
+function handleChange() {
+  return <div>hej</div>;
+}
+
+function InputComp({ type, onChange, name, placeholder, className }) {
+  return (
+    <input
+      type={type}
+      onChange={onChange}
+      name={name}
+      placeholder={placeholder}
+      className={className}
+    ></input>
   );
 }
 
-function FullpagePost({ title, placeholder }) {
+export function CreatePostComponent() {
+  const [form, setForm] = useState({
+    firstName: "",
+    lastName: "",
+    age: "",
+    superPower: "",
+  });
+
   return (
     <div>
-      <h4>{title}</h4>
-      <textarea placeholder={placeholder}></textarea>
-      <p>add tags:</p>
+      <form>
+        <InputComp
+          type="text"
+          onChange={handleChange}
+          name="firstName"
+          placeholder="First Name"
+          className="input-test"
+        />
+        <InputComp
+          type="text"
+          onChange={handleChange}
+          name="LastName"
+          placeholder="Last Name"
+          className="input-test"
+        />
+        <InputComp
+          type="text"
+          onChange={handleChange}
+          name="Age"
+          placeholder="Age"
+          className="input-test"
+        />
+        <InputComp
+          type="text"
+          onChange={handleChange}
+          name="SuperPower"
+          placeholder="Superpower"
+          className="input-test"
+        />
+      </form>
     </div>
   );
 }
