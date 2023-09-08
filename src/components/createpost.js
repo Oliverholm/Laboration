@@ -110,15 +110,11 @@ export function CreatePostComponent() {
           </div>
           );
         }
-        */
-
-//TESTAREA
-
-function handleChange() {
-  return <div>hej</div>;
-}
-
-function InputComp({ type, onChange, name, placeholder, className }) {
+        
+        
+        
+        
+        function InputComp({ type, onChange, name, placeholder, className }) {
   return (
     <input
       type={type}
@@ -137,6 +133,14 @@ export function CreatePostComponent() {
     age: "",
     superPower: "",
   });
+
+  const handleChange = (e) => {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value,
+    });
+    console.log(e.target.value);
+  };
 
   return (
     <div>
@@ -170,6 +174,60 @@ export function CreatePostComponent() {
           className="input-test"
         />
       </form>
+    </div>
+  );
+}
+
+        
+        
+        
+        
+        
+        */
+
+//TESTAREA
+
+export function CreatePostComponent() {
+  return (
+    <div>
+      <PageView />
+    </div>
+  );
+}
+
+function Component1() {
+  return <div>1</div>;
+}
+
+function Component2() {
+  return <div>2</div>;
+}
+
+function Component3() {
+  return <div>3</div>;
+}
+
+function PageView() {
+  const [veiw, setView] = useState("img");
+  let content;
+  if (content === "img") {
+    content = <Component1 />;
+  } else if (content === "link") {
+    content = <Component2 />;
+  } else if (content === "text") {
+    content = <Component3 />;
+  } else {
+    <alert>Error</alert>;
+  }
+
+  return (
+    <div>
+      <div>{content}</div>
+      <nav>
+        <button onClick={() => setView("img")}>Dashboard</button>
+        <button onClick={() => setView("link")}>link</button>
+        <button onClick={() => setView("text")}>text</button>
+      </nav>
     </div>
   );
 }
