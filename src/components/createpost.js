@@ -2,119 +2,94 @@
 import React, { useState } from "react";
 import { Meh } from "react-feather";
 
-import {
-  ROUTE_HOME,
-  ROUTE_POST,
-  INPUT_PAGE_TEXT,
-  INPUT_PAGE_IMG,
-  INPUT_PAGE_LINK,
-} from "../utils/constants";
 import "../styles/CreatePost.css";
 
-/*
-function UserListCreatePost() {
+export function CreatePostComponent() {
+  const [alt, setAlt] = useState("part");
+  const [view, setView] = useState("post");
+
+  if (alt === "part") {
+    return <CreatePostViewPart alt={alt} setAlt={setAlt} setView={setView} />;
+  } else if (alt === "full") {
+    return <CreatePostViewFull view={view} setView={setView} />;
+  } else if (alt === "img") {
+    return <CreatePostViewFull view={view} setView={setView} />;
+  } else if (alt === "link") {
+    return <CreatePostViewFull view={view} setView={setView} />;
+  }
+}
+
+function CreatePostViewPart({ alt, setAlt, view, setView }) {
+  return (
+    <>
+      <div className="part-wrapper">
+        <label for="select User" className="part-label">
+          Select User{" "}
+        </label>
+        <select name="Users" id="Users">
+          <option value="Jonte">Jonte</option>
+          <option value="Johanna">Johanna</option>
+          <option value="Johan">Johan</option>
+          <option value="Jolle">Jolle</option>
+          <option value="DragonSlayer">DragonSlayer</option>
+          <option value="Julia">Julia</option>
+        </select>
+      </div>
+      <div>
+        <input
+          type="text"
+          placeholder="Create post"
+          className="input-test"
+          name="part-input"
+          onClick={() => setAlt("full")}
+        ></input>
+        <button
+          onClick={() => {
+            setView("img");
+            setAlt("img");
+          }}
+        >
+          img
+        </button>
+        <button
+          onClick={() => {
+            setView("link");
+            setAlt("link");
+          }}
+        >
+          link
+        </button>
+      </div>
+    </>
+  );
+}
+
+function CreatePostViewFull({ view, setView }) {
+  let content;
+  if (view === "img") {
+    content = <CreatePostFullImage />;
+  } else if (view === "link") {
+    content = <CreatePostFullLink />;
+  } else if (view === "post") {
+    content = <CreatePostFullPost />;
+  }
+
   return (
     <div>
-      <label for="select User">Select User </label>
-      <select name="Users" id="Users">
-        <option value="Jonte">Jonte</option>
-        <option value="Johanna">Johanna</option>
-        <option value="Johan">Johan</option>
-        <option value="Jolle">Jolle</option>
-        <option value="DragonSlayer">DragonSlayer</option>
-        <option value="Julia">Julia</option>
-      </select>
+      <div>
+        <p className="post-header">Create a post!</p>
+      </div>
+      <nav>
+        <button onClick={() => setView("post")}>Post</button>
+        <button onClick={() => setView("img")}>Img</button>
+        <button onClick={() => setView("link")}>link</button>
+      </nav>
+      <span>{content}</span>
     </div>
   );
 }
 
-function InputCreatePost({ place, id }) {
-  return <input placeholder={place} id={id}></input>;
-}
-function ButtonCreatePost({ BtnText, id }) {
-  return <button id={id}>{BtnText}</button>;
-}
-
-export function CreatePostComponent() {
-  const [route, setRoute] = useState({ route: ROUTE_HOME });
-  const [inputType, setInputType] = useState((inputType = INPUT_PAGE_TEXT));
-     const updateInput = (event) => {
-    setContent(event.target.value);
-  };
-  if (route.route === ROUTE_HOME) {
-    return (
-      <>
-      <div className="create-post-wrapper">
-      <UserListCreatePost />
-      <InputCreatePost placeholder="create post" />
-      <ButtonCreatePost icon="Meh" />
-      <ButtonCreatePost />
-      <Meh />
-      </div>
-      </>
-      );
-    } else if (route.route === ROUTE_POST) {
-      return (
-        <>
-        <div className="create-post-fullpage-wrapper">
-        <InputCreatePost placeholder="create post" />
-        <ButtonCreatePost />
-        <ButtonCreatePost />
-        <ButtonCreatePost />
-        </div>
-        </>
-        );
-      } else return;
-    }
-    
-
-    
-    export function CreatePostComponent() {
-      <div>
-      <p>hej</p>
-      </div>;
-    }
-    
-    export function FullpageCreatePostComponent() {
-      const [postView, setPostView] = useState("post");
-      let content;
-      if (content === "post") {
-        return <div>Post</div>;
-      } else if (content === "img") {
-        return <div>img</div>;
-      } else {
-        return;
-        <div>Link</div>;
-      }
-      
-      return (
-        <div className="create-post-wrapper">
-        <section className="create-post-f-section-header">
-        <h2>Create a Post</h2>
-        </section>
-        <section>
-        <FullpagePost title="Post" placeholder="" />
-        <FullpagePost title="Image" placeholder="" />
-        <FullpagePost title="Link" placeholder="" />
-        </section>
-        </div>
-        );
-      }
-      
-      function FullpagePost({ title, placeholder }) {
-        return (
-          <div>
-          <h4>{title}</h4>
-          <textarea placeholder={placeholder}></textarea>
-          <p>add tags:</p>
-          </div>
-          );
-        }
-        
-        
-        
-        
-        function InputComp({ type, onChange, name, placeholder, className }) {
+function InputComp({ type, onChange, name, placeholder, className }) {
   return (
     <input
       type={type}
@@ -126,12 +101,12 @@ export function CreatePostComponent() {
   );
 }
 
-export function CreatePostComponent() {
+function CreatePostFullPost() {
   const [form, setForm] = useState({
-    firstName: "",
-    lastName: "",
-    age: "",
-    superPower: "",
+    title: "",
+    postarea: "",
+    tags: "",
+    submit: "",
   });
 
   const handleChange = (e) => {
@@ -143,91 +118,139 @@ export function CreatePostComponent() {
   };
 
   return (
-    <div>
-      <form>
+    <div className="input-wrapper">
+      <form className="input-form-wrapper">
         <InputComp
           type="text"
           onChange={handleChange}
-          name="firstName"
-          placeholder="First Name"
+          name="Title"
+          placeholder="Title"
+          className="input-test"
+        />
+        <textarea
+          placeholder="Write a post"
+          name="post-area"
+          rows="6"
+          cols="50"
+          onChange={handleChange}
+        ></textarea>
+        <InputComp
+          type="text"
+          onChange={handleChange}
+          name="Tags"
+          placeholder="Add tags"
           className="input-test"
         />
         <InputComp
-          type="text"
+          type="submit"
           onChange={handleChange}
-          name="LastName"
-          placeholder="Last Name"
-          className="input-test"
-        />
-        <InputComp
-          type="text"
-          onChange={handleChange}
-          name="Age"
-          placeholder="Age"
-          className="input-test"
-        />
-        <InputComp
-          type="text"
-          onChange={handleChange}
-          name="SuperPower"
-          placeholder="Superpower"
+          name="Submit"
+          placeholder="Post"
           className="input-test"
         />
       </form>
     </div>
   );
 }
+function CreatePostFullLink() {
+  const [form, setForm] = useState({
+    title: "",
+    postarea: "",
+    tags: "",
+    submit: "",
+  });
 
-        
-        
-        
-        
-        
-        */
+  const handleChange = (e) => {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value,
+    });
+    console.log(e.target.value);
+  };
 
-//TESTAREA
-
-export function CreatePostComponent() {
   return (
-    <div>
-      <PageView />
+    <div className="input-wrapper">
+      <form className="input-form-wrapper">
+        <InputComp
+          type="text"
+          onChange={handleChange}
+          name="Title"
+          placeholder="Title"
+          className="input-test"
+        />
+        <InputComp
+          type="url"
+          onChange={handleChange}
+          name="link"
+          placeholder="Add Link"
+          className="input-test"
+        />
+        <InputComp
+          type="text"
+          onChange={handleChange}
+          name="Tags"
+          placeholder="Add tags"
+          className="input-test"
+        />
+        <InputComp
+          type="submit"
+          onChange={handleChange}
+          name="Submit"
+          placeholder="Post"
+          className="input-test"
+        />
+      </form>
     </div>
   );
 }
+function CreatePostFullImage() {
+  const [form, setForm] = useState({
+    title: "",
+    postarea: "",
+    tags: "",
+    submit: "",
+  });
 
-function Component1() {
-  return <div>1</div>;
-}
-
-function Component2() {
-  return <div>2</div>;
-}
-
-function Component3() {
-  return <div>3</div>;
-}
-
-function PageView() {
-  const [veiw, setView] = useState("img");
-  let content;
-  if (content === "img") {
-    content = <Component1 />;
-  } else if (content === "link") {
-    content = <Component2 />;
-  } else if (content === "text") {
-    content = <Component3 />;
-  } else {
-    <alert>Error</alert>;
-  }
+  const handleChange = (e) => {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value,
+    });
+    console.log(e.target.value);
+  };
 
   return (
-    <div>
-      <div>{content}</div>
-      <nav>
-        <button onClick={() => setView("img")}>Dashboard</button>
-        <button onClick={() => setView("link")}>link</button>
-        <button onClick={() => setView("text")}>text</button>
-      </nav>
+    <div className="input-wrapper">
+      <form className="input-form-wrapper">
+        <InputComp
+          type="text"
+          onChange={handleChange}
+          name="Title"
+          placeholder="Title"
+          className="input-test"
+        />
+        <InputComp
+          type="file"
+          onChange={handleChange}
+          name="file"
+          placeholder="upload photo"
+          className="input-test"
+        />
+        <InputComp
+          type="text"
+          onChange={handleChange}
+          name="Tags"
+          placeholder="Add tags"
+          className="input-test"
+        />
+        <InputComp
+          type="submit"
+          onChange={handleChange}
+          name="Submit"
+          placeholder="Post"
+          className="input-test"
+        />
+      </form>
     </div>
   );
 }
