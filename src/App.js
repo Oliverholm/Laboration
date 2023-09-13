@@ -1,16 +1,11 @@
 import "./App.css";
-import { CreatePostComponent } from "./components/CreatePost";
-import { Sidebar } from "./components/Sidebar.js";
-import NavBar from "./components/navbar";
-import { PostList } from "./components/PostList";
+import { useState } from "react";
+import { CreatePostComponent } from "./components/createpost";
 
 function App() {
   return (
     <div className="App">
       <CreatePostComponent />
-      <NavBar />
-      <Sidebar />
-      <PostList />
     </div>
   );
 }

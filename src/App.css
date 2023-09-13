@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap");
+
 :root {
 	--dark-gray: #2b2d32;
 	--light-gray: #4b4c4f;
@@ -13,4 +14,5 @@
 	font-family: "Black Ops One", cursive;
 	font-weight: 400;
 	font-size: 3rem;
+
 }
