@@ -47,13 +47,8 @@ export function PostList() {
 							<Post
 								key={i}
 								post={post}
-								postId={post.id}
-								userId={post.userId}
 								setpostUserId={setpostUserId}
 								username={users[post.userId - 1].username}
-								title={post.title}
-								body={post.body}
-								tags={post.tags}
 								reactionsImport={post.reactions}
 								commentsImport={comments.total}
 							/>
@@ -160,14 +155,9 @@ function PostListButton({ icon, content, onClick }) {
 }
 
 function Post({
-	postId,
 	post,
-	userId,
 	setpostUserId,
 	username,
-	title,
-	body,
-	tags,
 	reactionsImport,
 	commentsImport,
 }) {
@@ -175,6 +165,8 @@ function Post({
 	const [vote, setVote] = useState(0);
 	const avatarPath = `https://robohash.org/` + username + "?set=set4";
 	const regularColor = "rgba(75, 76, 79, 0.8)";
+
+	const { id, userId, title, body, tags } = post;
 
 	// onClick funktioner
 	const upvote = (e) => {
