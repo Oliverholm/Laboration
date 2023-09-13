@@ -1,6 +1,190 @@
-.post {
-	background-color: #4b4c4f;
+.post,
+.post-placeholder {
+	background-color: var(--light-gray);
+	margin: 1rem;
 	padding: 1rem;
-	color: white;
+	color: var(--white);
 	font-family: "Roboto", sans-serif;
+	border-radius: 1rem;
+	max-width: 650px;
+	cursor: pointer;
+}
+.post:hover {
+	box-shadow: inset 0px 0px 0px 2px #bbb2a9;
+}
+.post-placeholder {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.postlist {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+.post-avatar {
+	margin-right: 1rem;
+	height: 50px;
+	background-color: var(--dark-gray);
+	border-radius: 50px;
+}
+.post-user-container {
+	display: flex;
+	align-items: center;
+}
+.post-top {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+.post-username {
+	color: var(--shadow-gray);
+	font-size: 1rem;
+	font-weight: 700;
+}
+.post-username-anchor {
+	color: var(--Redwood);
+}
+.post-username-anchor:hover {
+	border-bottom: 1px solid var(--Redwood);
+}
+
+.tag {
+	margin: 5px;
+	padding: 0.5rem 1rem;
+	border: 1px solid var(--white);
+	border-radius: 15px;
+	user-select: none;
+}
+
+.post-title {
+	font-size: 18px;
+	font-weight: 700;
+}
+.post-body {
+	padding: 1rem 0;
+	font-size: 16px;
+	font-weight: 500;
+}
+
+.post-lower {
+	margin-top: 1rem;
+	display: flex;
+	align-items: flex-end;
+	gap: 1.5rem;
+}
+.post-lower * {
+	background-color: var(--white);
+	color: var(--icon-faded);
+	display: flex;
+	align-items: center;
+	border-radius: 15px;
+	padding: 0.25rem 0.5rem;
+}
+
+.postlist-button {
+	all: unset;
+	display: flex;
+	cursor: pointer;
+	color: var(--icon-faded);
+}
+
+.postlist-button-content {
+	font-family: "Roboto", sans-serif;
+	font-size: 1rem;
+	font-weight: 500;
+}
+
+.positive:active {
+	background: rgba(0, 128, 0, 0.267);
+}
+
+.negative:active {
+	background: rgba(255, 0, 0, 0.267);
+}
+
+.report-label-button {
+	all: unset;
+	background-color: var(--white);
+	color: black;
+	padding: 12px 19px;
+	max-width: fit-content;
+	border-radius: 1rem;
+	font-family: "Roboto", sans-serif;
+}
+.report-label-button:hover {
+	background-color: var(--Redwood);
+	color: var(--white);
+	cursor: pointer;
+}
+
+.modal-container {
+	position: absolute;
+	background-color: var(--light-gray);
+	border-radius: 1rem;
+	padding: 1rem 2rem;
+	color: var(--white);
+	width: 32rem;
+	font-family: "Roboto", sans-serif;
+	box-shadow: inset 0px 0px 0px 2px #bbb2a9;
+}
+
+.report-modal-top {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+.report-modal-button-wrapper {
+	display: flex;
+	align-items: flex-start;
+	align-content: flex-start;
+	gap: 11px;
+	flex-wrap: wrap;
+}
+
+.overlay {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: absolute;
+	width: 99vw;
+	height: 100vh;
+	background: rgba(0, 0, 0, 0.514);
+}
+
+.about-report {
+	margin: 1rem 0;
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-end;
+	height: fit-content;
+}
+
+.modal-report-button,
+.modal-disabled-report-button {
+	all: unset;
+	padding: 0.5rem 1rem;
+	margin-bottom: 1rem;
+	text-align: center;
+	background-color: var(--Redwood);
+	border-radius: 1rem;
+	cursor: pointer;
+}
+.modal-disabled-report-button {
+	background-color: var(--shadow-gray);
+	cursor: not-allowed;
+}
+
+.about-report-p {
+	max-width: 80%;
+	color: var(--shadow-gray);
+}
+
+.close {
+	cursor: pointer;
+}
+
+.selected {
+	background-color: var(--Redwood);
+	color: var(--white);
 }
