@@ -1,6 +1,16 @@
-@import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap");
+:root {
+	--dark-gray: #2b2d32;
+	--light-gray: #4b4c4f;
+	--shadow-gray: #bbb2a9;
+	--Chestnut: #97443d;
+	--Redwood: #a15a49;
+	--white: #fdfdfd;
+
+	--icon-faded: rgba(75, 76, 79, 0.8);
+}
 .logo-nav {
-    font-family: 'Black Ops One', cursive;
-    font-weight: 400;
-    font-size: 3rem;
+	font-family: "Black Ops One", cursive;
+	font-weight: 400;
+	font-size: 3rem;
 }
