@@ -1,4 +1,4 @@
-// Jacob's componenets
+//Jacob
 import React, { useState } from "react";
 import { Meh } from "react-feather";
 
