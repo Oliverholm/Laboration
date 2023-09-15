@@ -1,6 +1,5 @@
-import { Meh, MoreVertical } from "react-feather"
-import '../styles/navbar.css' 
-
+import { Meh, MoreVertical } from "react-feather";
+import "../styles/navbar.css";
 
 function NavBar() {
     return (
@@ -22,5 +21,7 @@ function NavBar() {
         </div>
     )
 }
+
+export default NavBar;
 
 export default NavBar
