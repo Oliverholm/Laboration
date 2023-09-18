@@ -2,3 +2,33 @@
     display: flex;
     justify-content: space-between;
 }
+
+.mt {
+    margin-top: 10px;
+}
+.mt20 {
+    margin-top: 22px;
+}
+
+.nav-searchbar {
+    width: 30rem;
+    height: 2.75rem;
+    
+}
+.btn-icon {
+    height: 2.75rem;
+    float: right;
+}
+* {
+    box-sizing: border-box;
+    margin: 0;
+}
+.flex {
+    display: flex;
+    align-items: center;
+}
+.btn {
+    height: 2.75rem;
+    width: 4rem;
+    border-radius: 2rem;
+}
