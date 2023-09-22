@@ -5,6 +5,27 @@ import { reportList } from "../utils/constants";
 
 // Main Komponent
 export function PostList() {
+	const [posts, setPosts] = useState([]);
+	const [users, setUsers] = useState([]);
+	const [comments, setComments] = useState([]);
+	const [postUserId, setpostUserId] = useState();
+	const [openModal, setOpenModal] = useState(true);
+	const fetchPosts = () => {
+		getPosts().then((posts) => {
+			setPosts(posts.posts);
+		});
+	};
+	const fetchUsers = () => {
+		getUsers().then((users) => {
+			setUsers(users.users);
+		});
+	};
+	const fetchComments = () => {
+		getComments().then((comments) => {
+			setComments(comments.comments);
+		});
+	};
+  
 	useEffect(() => {
 		fetchPosts();
 		fetchUsers();
@@ -146,6 +167,7 @@ function Post({ post, setpostUserId, username, reactionsImport, comments }) {
 			.then((res) => res.json())
 			.then((comment) => {
 				setCommentsOnPost(comment.total);
+				console.log(comment);
 			});
 	};
 
