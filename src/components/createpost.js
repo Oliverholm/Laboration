@@ -1,6 +1,5 @@
 //Jacob
 import React, { useState } from "react";
-import { Meh } from "react-feather";
 
 import "../styles/CreatePost.css";
 
@@ -46,7 +45,7 @@ export function CreatePostComponent() {
   }
 }
 
-function CreatePostViewPart({ alt, setAlt, view, setView }) {
+function CreatePostViewPart({ setAlt, setView }) {
   return (
     <>
       <div className="part-wrapper">
