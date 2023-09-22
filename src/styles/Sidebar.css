@@ -1,76 +1,76 @@
 * {
-  font-family: "Roboto";
+	font-family: "Roboto";
 }
 
 :root {
-  --dark-gray: #2b2d32;
-  --light-gray: #4b4c4f;
-  --shadow-gray: #bbb2a9;
-  --Chestnut: #97443d;
-  --Redwood: #a15a49;
-  --white: #fdfdfd;
+	--dark-gray: #2b2d32;
+	--light-gray: #4b4c4f;
+	--shadow-gray: #bbb2a9;
+	--Chestnut: #97443d;
+	--Redwood: #a15a49;
+	--white: #fdfdfd;
 
-  --icon-faded: rgba(75, 76, 79, 0.8);
+	--icon-faded: rgba(75, 76, 79, 0.8);
 }
 
 .sb-container {
-  padding-top: 1.5em;
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  width: 250px;
-  border-right: 1px solid var(--light-gray);
-  padding-left: 2em;
+	padding-top: 1.5em;
+	display: flex;
+	flex-direction: column;
+	height: 100vh;
+	width: 250px;
+	border-right: 1px solid var(--light-gray);
+	padding-left: 2em;
 }
 
 .icon {
-  color: var(--icon-faded);
+	color: var(--icon-faded);
 }
 
 #titles {
-  font-size: 1em;
-  text-align: center;
-  color: var(--white);
+	font-size: 1em;
+	text-align: center;
+	color: var(--white);
 }
 
 .bottom-border {
-  width: 80%;
-  opacity: 0.6;
-  background-color: var(--light-gray);
-  border: none;
-  height: 2px;
+	width: 80%;
+	opacity: 0.6;
+	background-color: var(--light-gray);
+	border: none;
+	height: 2px;
 }
 
 .sb-options {
-  list-style: none;
-  font-size: 1.1em;
-  margin-bottom: 1em;
-  color: var(--white);
+	list-style: none;
+	font-size: 1.1em;
+	margin-bottom: 1em;
+	color: var(--white);
 }
 
 .sb-options:hover {
-  background-color: var(--shadow-gray);
-  border-radius: 4px;
-  width: 80%;
+	background-color: var(--shadow-gray);
+	border-radius: 4px;
+	width: 80%;
 }
 
 .github-logo {
-  display: flex;
-  justify-content: center;
+	display: flex;
+	justify-content: center;
 }
 
 .github-logo:hover {
-  color: var(--Chestnut);
+	color: var(--Chestnut);
 }
 
 .sb-footer {
-  display: flex;
-  flex-direction: column;
+	display: flex;
+	flex-direction: column;
 }
 
 footer span {
-  font-size: 10px;
-  display: flex;
-  justify-content: center;
-  color: var(--white);
+	font-size: 10px;
+	display: flex;
+	justify-content: center;
+	color: var(--white);
 }
