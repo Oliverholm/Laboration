@@ -25,7 +25,7 @@ export function PostList() {
 			setComments(comments.comments);
 		});
 	};
-
+  
 	useEffect(() => {
 		fetchPosts();
 		fetchUsers();
