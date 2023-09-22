@@ -22,8 +22,7 @@ export function PostList() {
 	};
 	const fetchComments = () => {
 		getComments().then((comments) => {
-			// sätter state:n till bara comments istället för comments.comments för jag använder comments.total
-			setComments(comments);
+			setComments(comments.comments);
 		});
 	};
 
@@ -50,7 +49,7 @@ export function PostList() {
 								setpostUserId={setpostUserId}
 								username={users[post.userId - 1].username}
 								reactionsImport={post.reactions}
-								commentsImport={comments.total}
+								comments={comments}
 							/>
 						);
 					})
@@ -154,19 +153,23 @@ function PostListButton({ icon, content, onClick }) {
 		);
 }
 
-function Post({
-	post,
-	setpostUserId,
-	username,
-	reactionsImport,
-	commentsImport,
-}) {
+function Post({ post, setpostUserId, username, reactionsImport, comments }) {
 	const [reactions, setReactions] = useState(reactionsImport);
 	const [vote, setVote] = useState(0);
+	const [commentsOnPost, setCommentsOnPost] = useState(0);
 	const avatarPath = `https://robohash.org/` + username + "?set=set4";
 	const regularColor = "rgba(75, 76, 79, 0.8)";
 
 	const { id, userId, title, body, tags } = post;
+
+	const fetchCommentsOnPost = (id) => {
+		fetch("https://dummyjson.com/comments/post/" + id)
+			.then((res) => res.json())
+			.then((comment) => {
+				setCommentsOnPost(comment.total);
+				console.log(comment);
+			});
+	};
 
 	// onClick funktioner
 	const upvote = (e) => {
@@ -185,10 +188,14 @@ function Post({
 	const handleUsernameClick = (e) => {
 		e.stopPropagation();
 		setpostUserId(userId);
-		fetch("https://dummyjson.com/posts/user/" + userId)
-			.then((res) => res.json())
-			.then(console.log);
+		fetch("https://dummyjson.com/posts/user/" + userId).then((res) =>
+			res.json()
+		);
 	};
+
+	useEffect(() => {
+		fetchCommentsOnPost(id);
+	}, []);
 
 	return (
 		<article
@@ -256,7 +263,7 @@ function Post({
 				<div className="post-comments">
 					<PostListButton
 						icon={<MessageSquare size={20} />}
-						content={commentsImport}
+						content={commentsOnPost}
 					/>
 				</div>
 				<div className="post-report">
@@ -269,7 +276,7 @@ function Post({
 
 // fetch
 async function getPosts() {
-	let result = await fetch("https://dummyjson.com/posts");
+	let result = await fetch("https://dummyjson.com/posts?limit=20");
 	let posts = await result.json();
 	return posts;
 }
@@ -282,6 +289,12 @@ async function getUsers() {
 
 async function getComments() {
 	let result = await fetch("https://dummyjson.com/comments?limit=0");
+	let comments = await result.json();
+	return comments;
+}
+
+async function getCommentsOfPost(postId) {
+	let result = await fetch("https://dummyjson.com/comments/post/" + postId);
 	let comments = await result.json();
 	return comments;
 }
