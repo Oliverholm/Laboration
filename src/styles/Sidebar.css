@@ -21,6 +21,8 @@
 	width: 250px;
 	border-right: 1px solid var(--light-gray);
 	padding-left: 2em;
+	position: fixed;
+	top: 80px;
 }
 
 .icon {

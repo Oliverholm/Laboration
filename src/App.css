@@ -9,10 +9,14 @@
 	--white: #fdfdfd;
 
 	--icon-faded: rgba(75, 76, 79, 0.8);
-
 }
 .logo-nav {
 	font-family: "Black Ops One", cursive;
 	font-weight: 400;
 	font-size: 3rem;
+}
+
+.main-content {
+	display: flex;
+	flex-direction: column;
 }

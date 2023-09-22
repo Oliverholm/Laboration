@@ -4,38 +4,24 @@ import { ArrowUp, ArrowDown, MessageSquare, Flag, X } from "react-feather";
 import { reportList } from "../utils/constants";
 
 // Main Komponent
-export function PostList() {
-	const [posts, setPosts] = useState([]);
-	const [users, setUsers] = useState([]);
+export function PostList({ users, posts }) {
 	const [comments, setComments] = useState([]);
 	const [postUserId, setpostUserId] = useState();
-	const [openModal, setOpenModal] = useState(true);
-	const fetchPosts = () => {
-		getPosts().then((posts) => {
-			setPosts(posts.posts);
-		});
-	};
-	const fetchUsers = () => {
-		getUsers().then((users) => {
-			setUsers(users.users);
-		});
-	};
+	const [openModal, setOpenModal] = useState(false);
 	const fetchComments = () => {
 		getComments().then((comments) => {
 			setComments(comments.comments);
 		});
 	};
-  
+
 	useEffect(() => {
-		fetchPosts();
-		fetchUsers();
 		fetchComments();
 	}, []);
 
 	return (
 		<>
 			<ReportModal open={openModal} setOpen={setOpenModal} />
-			<main className="postlist">
+			<section className="postlist">
 				{posts.length === 0 || users.length === 0 ? (
 					<div className="post-placeholder">
 						<h3>Posts haven't loaded yet...</h3>
@@ -54,7 +40,7 @@ export function PostList() {
 						);
 					})
 				)}
-			</main>
+			</section>
 		</>
 	);
 }
@@ -167,7 +153,6 @@ function Post({ post, setpostUserId, username, reactionsImport, comments }) {
 			.then((res) => res.json())
 			.then((comment) => {
 				setCommentsOnPost(comment.total);
-				console.log(comment);
 			});
 	};
 
@@ -275,17 +260,6 @@ function Post({ post, setpostUserId, username, reactionsImport, comments }) {
 }
 
 // fetch
-async function getPosts() {
-	let result = await fetch("https://dummyjson.com/posts?limit=20");
-	let posts = await result.json();
-	return posts;
-}
-
-async function getUsers() {
-	let result = await fetch("https://dummyjson.com/users?limit=0");
-	let users = await result.json();
-	return users;
-}
 
 async function getComments() {
 	let result = await fetch("https://dummyjson.com/comments?limit=0");

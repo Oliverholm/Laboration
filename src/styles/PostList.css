@@ -58,6 +58,7 @@
 }
 
 .post-title {
+	text-align: start;
 	font-size: 18px;
 	font-weight: 700;
 }
