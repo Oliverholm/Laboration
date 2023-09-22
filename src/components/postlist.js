@@ -167,7 +167,6 @@ function Post({ post, setpostUserId, username, reactionsImport, comments }) {
 			.then((res) => res.json())
 			.then((comment) => {
 				setCommentsOnPost(comment.total);
-				console.log(comment);
 			});
 	};
 
