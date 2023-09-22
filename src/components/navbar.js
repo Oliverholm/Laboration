@@ -1,47 +1,36 @@
-import { Meh, Search, Menu, Moon } from "react-feather";
+import { Search, Menu, GitHub } from "react-feather";
 import { useState } from "react";
 import "../styles/navbar.css";
+import Logo from "../logo.png";
 
 export function NavBar() {
-  const [query, setQuery] = useState("");
+  const [searchInput, setSearchInput] = useState("");
 
-  const changeHandler = (event) => {
-    setQuery(event.target.value);
+  const searchItems = (searchValue) => {
+    setSearchInput(searchValue);
+    // filter((item) => {
+    //   return Object.values(item).join('').toLowerCase().includes(searchInput.toLowerCase())
   };
-
-  //   const filterPosts = NAMES.filter((item) => {
-  //     return item.id.includes(query) || item.id.includes(query);
-  //   });
-
   return (
-    <div className="nav-flex">
-      <div className="nav-flex">
-        <Meh size={"80px"} color="white" />
-        <h1 className="logo-nav mt">psq</h1>
-      </div>
+    <div className="nav">
+      <img className="logo" src={Logo} width={"100px"} alt="Team Logo" />
       <div className="flex-c">
-        <span className="flex">
+        <span className="flex span">
           <input
             className="nav-searchbar "
             type="search"
-            placeholder="Search Our Fake Reddit"
-            value={query}
+            placeholder="Search Posts"
+            value={searchInput}
+            onChange={(e) => {
+              searchItems(e.target.value);
+            }}
           />
-          <button onClick={changeHandler} className="btn-icon">
+          <button className="btn-icon">
             <Search size={"25px"} className="icon" />
           </button>
         </span>
       </div>
-
-      <span className="flex">
-        <span>
-          <button style={{ backgroundColor: "#2b2d32" }} className="btn">
-            <Moon size={"20px"} />
-          </button>
-        </span>
-
-        <DropDown />
-      </span>
+      <DropDown />
     </div>
   );
 }
@@ -65,7 +54,7 @@ const DropDown = () => {
         </h3>
         <ul>
           <DropdownItem text={"Johan"} />
-          <DropdownItem text={"Jakob"} />
+          <DropdownItem text={"Jacob"} />
           <DropdownItem text={"Joel"} />
           <DropdownItem text={"Oliver"} />
         </ul>
@@ -77,8 +66,18 @@ const DropDown = () => {
 function DropdownItem(props) {
   return (
     <li className="dropdownItem">
-      <Meh />
+      <GitHub
+        width={"35px"}
+        height={"35px"}
+        style={{
+          color: "#cecece",
+        }}
+      />
       <a>{props.text}</a>
     </li>
   );
 }
+
+// const filterPosts = posts.filter((item) => {
+//   return item.includes(query) || item.includes(query);
+// });
