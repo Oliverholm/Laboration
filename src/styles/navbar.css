@@ -44,6 +44,7 @@
   
   .flex {
     display: flex;
+
     justify-content: center;
     margin-left: 6rem;
     margin-top: 1.75rem;
@@ -173,4 +174,5 @@
     margin-left: 10px;
     transition: var(--speed);
   } 
+
 

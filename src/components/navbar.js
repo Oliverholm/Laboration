@@ -35,6 +35,7 @@ export function NavBar() {
   );
 }
 
+
 const DropDown = () => {
   const [open, setOpen] = useState(false);
   return (
@@ -81,3 +82,4 @@ function DropdownItem(props) {
 // const filterPosts = posts.filter((item) => {
 //   return item.includes(query) || item.includes(query);
 // });
+export default NavBar
