@@ -13,7 +13,7 @@ function App() {
 			<Sidebar />
 			<PostList />
 		</div>
-	);
+	)
 }
 
 export default App;

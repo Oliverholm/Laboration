@@ -1,47 +1,64 @@
-.create-post-wrapper {
-  background-color: #4b4c4f;
+.part-wrapper,
+.input-wrapper {
+  margin: 1rem;
   padding: 1rem;
-  color: white;
+  background-color: var(--light-gray);
+  color: var(--white);
   font-family: "Roboto", sans-serif;
+  border-radius: 1rem;
+  max-width: 650px;
+  cursor: pointer;
+}
+
+.part-wrapper {
   display: flex;
-  gap: 1rem;
-  border: 2px solid white;
-}
-
-#create-post-id-input {
-  width: 25rem;
-  color: white;
-  background-color: black;
-  border: 2px solid white;
-  border-radius: 0.25rem;
-}
-
-#create-post-id-btn-img,
-#create-post-id-btn-link {
-  color: white;
-  background-color: black;
-  border: 2px solid white;
-  border-radius: 0.25rem;
-}
-
-.input-form-wrapper {
-  display: flex;
-  flex-direction: column;
-}
-
-.post-header {
-  font-size: 2rem;
-  border-bottom: 2px solid white;
-}
-
-textarea {
-  resize: none;
+  padding: 1rem;
 }
 
 .part-label {
   font-size: 1rem;
 }
+.post-header {
+  font-size: 2rem;
+  border-bottom: 2px solid white;
+}
 
-.part-wrapper {
+.input-form-wrapper {
   display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+.pre-input-nav {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  padding-bottom: 0.5rem;
+  cursor: default;
+}
+
+.pre-input-nav > button {
+  background-color: inherit;
+  color: var(--white);
+  border-radius: 15px;
+  font-size: 18px;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--white);
+  cursor: pointer;
+}
+.pre-input-nav > button:hover {
+  box-shadow: inset 0px 0px 0px 2px #bbb2a9;
+}
+
+.post-input {
+  margin: none;
+  padding: none;
+  border: none;
+  resize: none;
+}
+
+.link-input {
+  color: black;
+}
+.img-input {
+  color: inherit;
 }
