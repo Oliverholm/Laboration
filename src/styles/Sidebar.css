@@ -14,18 +14,25 @@
 }
 
 .sb-container {
-	padding-top: 1.5em;
+	padding-top: 3.5em;
+	padding-left: 2em;
 	display: flex;
 	flex-direction: column;
 	height: 100vh;
 	width: 250px;
 	border-right: 1px solid var(--light-gray);
-	padding-left: 2em;
 	position: fixed;
 	top: 80px;
 }
 
+.arrow-icon {
+	color: var(--icon-faded);
+	cursor: pointer;
+}
+
 .icon {
+	position: relative;
+	top: 2.5px;
 	color: var(--icon-faded);
 }
 
@@ -43,6 +50,23 @@
 	height: 2px;
 }
 
+/* Categories */
+
+.sb-categories {
+	margin: 1em;
+}
+
+.sb-top-container {
+	display: flex;
+	justify-content: center;
+	gap: 1em;
+}
+
+.sb-dropdown-button {
+	background: none;
+	border: none;
+}
+
 .sb-options {
 	list-style: none;
 	font-size: 1.1em;
@@ -51,11 +75,14 @@
 }
 
 .sb-options:hover {
-	background-color: var(--shadow-gray);
+	cursor: pointer;
+	scale: 1.05;
+	background-color: rgb(61, 63, 69, 0.4);
 	border-radius: 4px;
 	width: 80%;
 }
 
+/* Resources */
 .github-logo {
 	display: flex;
 	justify-content: center;
@@ -75,4 +102,14 @@ footer span {
 	display: flex;
 	justify-content: center;
 	color: var(--white);
+}
+
+/* Gömmer kategori listan */
+
+.active {
+	display: all;
+}
+
+.inactive {
+	display: none;
 }

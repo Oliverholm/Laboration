@@ -6,7 +6,7 @@
 	color: var(--white);
 	font-family: "Roboto", sans-serif;
 	border-radius: 1rem;
-	max-width: 650px;
+	width: 650px;
 	cursor: pointer;
 }
 .post:hover {
@@ -21,6 +21,7 @@
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	margin-left: 1rem;
 }
 .post-avatar {
 	margin-right: 1rem;

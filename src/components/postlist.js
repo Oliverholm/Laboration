@@ -4,7 +4,7 @@ import { ArrowUp, ArrowDown, MessageSquare, Flag, X } from "react-feather";
 import { reportList } from "../utils/constants";
 
 // Main Komponent
-export function PostList({ users, posts }) {
+export function PostList({ users, posts, filteredResults }) {
 	const [comments, setComments] = useState([]);
 	const [postUserId, setpostUserId] = useState();
 	const [openModal, setOpenModal] = useState(false);
@@ -17,7 +17,6 @@ export function PostList({ users, posts }) {
 	useEffect(() => {
 		fetchComments();
 	}, []);
-
 	return (
 		<>
 			<ReportModal open={openModal} setOpen={setOpenModal} />
@@ -124,7 +123,7 @@ function ReportModalButton({ set, selectedReport }) {
 		</div>
 	);
 }
-function PostListButton({ icon, content, onClick }) {
+export function PostListButton({ icon, content, onClick }) {
 	if (!content)
 		return (
 			<button className={"postlist-button"} onClick={onClick}>
@@ -139,7 +138,7 @@ function PostListButton({ icon, content, onClick }) {
 		);
 }
 
-function Post({ post, setpostUserId, username, reactionsImport, comments }) {
+function Post({ post, setpostUserId, username, reactionsImport }) {
 	const [reactions, setReactions] = useState(reactionsImport);
 	const [vote, setVote] = useState(0);
 	const [commentsOnPost, setCommentsOnPost] = useState(0);
@@ -178,9 +177,7 @@ function Post({ post, setpostUserId, username, reactionsImport, comments }) {
 		);
 	};
 
-	useEffect(() => {
-		fetchCommentsOnPost(id);
-	}, []);
+	useEffect(() => {}, []);
 
 	return (
 		<article
@@ -214,7 +211,7 @@ function Post({ post, setpostUserId, username, reactionsImport, comments }) {
 				<h3 className="post-title">{title}</h3>
 			</div>
 			<hr className="divider" />
-			<div className="post-body">{body}</div>
+			<div className="post-body">{post.body.slice(0, 60) + "..."}</div>
 			<div className="post-lower">
 				<div className="post-reactions">
 					<PostListButton

@@ -50,3 +50,15 @@ export const reportList = [
 			"Repetitive, unsolicited, or unsolicited manual or automated actions that negatively impact redditers, communities, and the Reddit platform.",
 	},
 ];
+
+export const categoriesList = [
+	"History",
+	"Crime",
+	"French",
+	"Fiction",
+	"English",
+	"Magical",
+	"Mystery",
+	"Love",
+	"Classic",
+];

@@ -1,6 +1,5 @@
 .part-wrapper,
 .input-wrapper {
-	margin: 1rem;
 	padding: 1rem;
 	background-color: var(--light-gray);
 	color: var(--white);
@@ -15,16 +14,31 @@
 	justify-content: center;
 	align-items: center;
 	margin-top: 5rem;
+	margin-left: 1rem;
+}
+
+.input-wrapper {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 3rem;
 }
 
 .part-wrapper {
 	display: flex;
-	padding: 1rem;
+	justify-content: center;
+	align-items: center;
+	gap: 1rem;
+	width: 650px;
 }
 
 .part-label {
-	font-size: 1rem;
+	font-size: 18px;
+	text-decoration: underline;
 }
+
 .post-header {
 	font-size: 2rem;
 	border-bottom: 2px solid white;
@@ -33,7 +47,9 @@
 .input-form-wrapper {
 	display: flex;
 	flex-direction: column;
-	gap: 0.125rem;
+	justify-content: center;
+	align-items: center;
+	gap: 2rem;
 }
 .pre-input-nav {
 	display: flex;
@@ -61,11 +77,71 @@
 	padding: none;
 	border: none;
 	resize: none;
+	border-radius: 15px;
+	font-size: 18px;
+	width: 650px;
 }
 
 .link-input {
 	color: black;
+	border-radius: 15px;
+	font-size: 18px;
+	width: 650px;
 }
 .img-input {
 	color: inherit;
+	border-radius: 15px;
+	font-size: 18px;
+	width: 650px;
+}
+
+.img-btn,
+.link-btn {
+	margin: 5px;
+	padding: 0.5rem 1rem;
+	border: 1px solid var(--white);
+	border-radius: 15px;
+	font-size: 16px;
+	font-weight: 500;
+	width: 130px;
+}
+
+.input-test,
+.input-test-full {
+	font-size: 16px;
+	border-radius: 15px;
+	padding: 0.5rem;
+}
+
+.input-test {
+	width: 400px;
+}
+
+.input-test-full {
+	width: 650px;
+}
+.create-post-selector {
+	font-size: 16px;
+	border-radius: 15px;
+	padding-top: 0.5rem;
+	padding-bottom: 0.5rem;
+}
+
+.datalist-div {
+	display: flex;
+	justify-content: center;
+	gap: 0.5rem;
+}
+
+.datalist-div input {
+	padding: 0.5rem;
+	border-radius: 15px;
+}
+.create-post-view-wrapper {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 0.5rem;
+	margin-top: 5rem;
 }

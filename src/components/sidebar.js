@@ -1,28 +1,34 @@
 import { useState } from "react";
 import "../styles/Sidebar.css";
-import { TrendingUp, ArrowRight, GitHub, ArrowDown } from "react-feather";
+import {
+	TrendingUp,
+	ArrowRight,
+	GitHub,
+	ArrowDown,
+	HelpCircle,
+	BookOpen,
+	Monitor,
+} from "react-feather";
+import { categoriesList } from "../utils/constants";
 
-export function Sidebar() {
+export function Sidebar({ posts }) {
 	const SBCIcon = <ArrowRight size="1em" className="icon" />;
 
 	const [isActive, setIsActive] = useState(true);
-	const onClick = () => setIsActive(!isActive);
-
 	const [rotateArrow, setRotateArrow] = useState(false);
-	const handleRotate = () => setRotateArrow(!rotateArrow);
+	const [filterCategory, setFilterCategory] = useState("");
+
 	const rotate = rotateArrow ? "rotate(180deg)" : "rotate(0)";
 
-	const categoriesList = [
-		"History",
-		"Crime",
-		"French",
-		"Fiction",
-		"English",
-		"Magical",
-		"Mystery",
-		"Love",
-		"Classic",
-	];
+	const handleRotate = () => setRotateArrow(!rotateArrow);
+	const onClick = () => setIsActive(!isActive);
+
+	const handleCategory = (category) => {
+		const filterPost = posts.filter((post) => {
+			return post.tags.includes(category.toLowerCase());
+		});
+		setFilterCategory(filterPost);
+	};
 
 	return (
 		<aside className="sb-container">
@@ -36,20 +42,24 @@ export function Sidebar() {
 				<hr className="bottom-border" />
 			</section>
 			<section className="sb-categories">
-				<h2 id="titles">Categories</h2>
-
-				<button onClick={onClick} className="sb-dropdown-button">
-					<ArrowDown
-						className="icon"
-						style={{ transform: rotate, transition: "all 0.2s linear" }}
-						onClick={handleRotate}
-					/>
-				</button>
-
-				<nav>
+				<div className="sb-top-container">
+					<h2 id="titles">Categories</h2>
+					<button onClick={onClick} className="sb-dropdown-button">
+						<ArrowDown
+							className="arrow-icon"
+							style={{ transform: rotate, transition: "all 0.3s linear" }}
+							onClick={handleRotate}
+						/>
+					</button>
+				</div>
+				<nav className={`dropdown ${isActive ? "active" : "inactive"}`}>
 					<ul>
-						{categoriesList.map((category) => (
-							<li key={category} className="sb-options">
+						{categoriesList.map((category, idx) => (
+							<li
+								key={idx}
+								className="sb-options"
+								onClick={() => handleCategory(category)}
+							>
 								{SBCIcon}&nbsp;&nbsp;
 								{category}
 							</li>
@@ -62,7 +72,18 @@ export function Sidebar() {
 				<div className="sb-resources">
 					<h3 id="titles">Resources</h3>
 					<ul>
-						<li className="sb-options">{SBCIcon}&nbsp;&nbsp;About PSQ</li>
+						<li className="sb-options">
+							<Monitor className="icon" size="1.2em" />
+							&nbsp;&nbsp; About PSQ
+						</li>
+						<li className="sb-options">
+							<HelpCircle className="icon" size="1.2em" />
+							&nbsp;&nbsp; Help
+						</li>
+						<li className="sb-options">
+							<BookOpen className="icon" size="1.2em" />
+							&nbsp;&nbsp; Blog
+						</li>
 					</ul>
 				</div>
 			</section>
@@ -84,5 +105,3 @@ export function Sidebar() {
 		</aside>
 	);
 }
-
-export function sortCategory() {}

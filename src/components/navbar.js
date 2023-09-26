@@ -3,8 +3,19 @@ import { useState } from "react";
 import "../styles/navbar.css";
 import Logo from "../logo.png";
 
-export function NavBar({ posts }) {
+export function NavBar({ posts, setFilteredResults }) {
 	const [searchInput, setSearchInput] = useState("");
+
+	const searchItems = (searchValue) => {
+		setSearchInput(searchValue);
+		const filterPost = posts.filter((post) => {
+			return Object.values(post)
+				.join("")
+				.toLowerCase()
+				.includes(searchInput.toLowerCase());
+		});
+		setFilteredResults(filterPost);
+	};
 
 	return (
 		<div className="nav">
@@ -13,11 +24,11 @@ export function NavBar({ posts }) {
 				<span className="flex span">
 					<input
 						className="nav-searchbar "
-						type="search"
+						type="text"
 						placeholder="Search Posts"
 						value={searchInput}
 						onChange={(e) => {
-							setSearchInput(e.target.value);
+							searchItems(e.target.value);
 						}}
 					/>
 					<button className="btn-icon">

@@ -1,13 +1,17 @@
 import "./App.css";
 import { useEffect, useState } from "react";
-import { CreatePostComponent } from "./components/createpost";
-import { PostList } from "./components/postlist";
 import { Sidebar } from "./components/sidebar";
 import { NavBar } from "./components/navbar";
+import { Home } from "./pages/home";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { SinglePost } from "./pages/singlePost";
+import { NewPost } from "./pages/newPost";
 
 function App() {
 	const [users, setUsers] = useState([]);
 	const [posts, setPosts] = useState([]);
+	const [filteredResults, setFilteredResults] = useState([]);
+	const [singlePost, setSinglePost] = useState([]);
 
 	const fetchUsers = () => {
 		getUsers().then((users) => {
@@ -31,16 +35,43 @@ function App() {
 	}, []);
 
 	return (
-		<div className="App">
-			<NavBar posts={posts} />
-			<Sidebar posts={posts} />
-			<main className="main-content">
-				<CreatePostComponent users={users} renderAvatar={renderAvatar} />
-				<PostList users={users} posts={posts} />
-			</main>
-		</div>
+		<Router>
+			<div className="App">
+				<NavBar posts={posts} setFilteredResults={setFilteredResults} />
+				<Sidebar posts={posts} setFilteredResults={setFilteredResults} />
+				<main className="main-content">
+					<Routes>
+						<Route
+							exact
+							path="/"
+							element={
+								<Home
+									posts={posts}
+									users={users}
+									renderAvatar={renderAvatar}
+									filteredResults={filteredResults}
+									setSinglePost={setSinglePost}
+								/>
+							}
+						/>
+						<Route path="/Post" />
+						<Route path="/Create" element={<NewPost users={users} />} />
+					</Routes>
+				</main>
+			</div>
+		</Router>
 	);
 }
+
+/*
+							element={
+								<SinglePost
+									post={singlePost}
+									username={users[singlePost.userId - 1].username}
+									reactionsImport={singlePost.reactions}
+								/>
+							}
+*/
 
 async function getPosts() {
 	let result = await fetch("https://dummyjson.com/posts?limit=20");
