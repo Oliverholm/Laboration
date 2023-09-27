@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 import "../styles/PostList.css";
 import { ArrowUp, ArrowDown, MessageSquare, Flag, X } from "react-feather";
 import { reportList } from "../utils/constants";
+import { Link } from "react-router-dom";
 
 // Main Komponent
-export function PostList({ users, posts, filteredResults }) {
+export function PostList({ users, posts, filteredResults, setSinglePost }) {
 	const [comments, setComments] = useState([]);
 	const [postUserId, setpostUserId] = useState();
 	const [openModal, setOpenModal] = useState(false);
@@ -35,6 +36,7 @@ export function PostList({ users, posts, filteredResults }) {
 								username={users[post.userId - 1].username}
 								reactionsImport={post.reactions}
 								comments={comments}
+								setSinglePost={setSinglePost}
 							/>
 						);
 					})
@@ -126,7 +128,7 @@ function ReportModalButton({ set, selectedReport }) {
 export function PostListButton({ icon, content, onClick }) {
 	if (!content)
 		return (
-			<button className={"postlist-button"} onClick={onClick}>
+			<button className="postlist-button" onClick={onClick}>
 				{icon}
 			</button>
 		);
@@ -138,7 +140,13 @@ export function PostListButton({ icon, content, onClick }) {
 		);
 }
 
-function Post({ post, setpostUserId, username, reactionsImport }) {
+function Post({
+	post,
+	setpostUserId,
+	username,
+	reactionsImport,
+	setSinglePost,
+}) {
 	const [reactions, setReactions] = useState(reactionsImport);
 	const [vote, setVote] = useState(0);
 	const [commentsOnPost, setCommentsOnPost] = useState(0);
@@ -180,79 +188,76 @@ function Post({ post, setpostUserId, username, reactionsImport }) {
 	useEffect(() => {}, []);
 
 	return (
-		<article
-			className="post"
-			onClick={() => {
-				console.log(post);
-			}}
-		>
-			<div className="post-top">
-				<div className="post-user-container">
-					<img className="post-avatar" src={avatarPath} />
-					<span className="post-username">
-						Posted by:{" "}
-						<a
-							onClick={(e) => handleUsernameClick(e)}
-							className="post-username-anchor"
-						>
-							{toUpper(username)}
-						</a>
-					</span>
-				</div>
-				<div className="tag-container">
-					{tags.map((tag) => (
-						<span className="tag" key={tag}>
-							{toUpper(tag)}
+		<Link to="/Post" onClick={() => setSinglePost(post)}>
+			<article className="post">
+				<div className="post-top">
+					<div className="post-user-container">
+						<img className="post-avatar" src={avatarPath} />
+						<span className="post-username">
+							Posted by:{" "}
+							<a
+								onClick={(e) => handleUsernameClick(e)}
+								className="post-username-anchor"
+							>
+								{toUpper(username)}
+							</a>
 						</span>
-					))}
+					</div>
+					<div className="tag-container">
+						{tags.map((tag) => (
+							<span className="tag" key={tag}>
+								{toUpper(tag)}
+							</span>
+						))}
+					</div>
 				</div>
-			</div>
-			<div className="post-upper">
-				<h3 className="post-title">{title}</h3>
-			</div>
-			<hr className="divider" />
-			<div className="post-body">{post.body.slice(0, 60) + "..."}</div>
-			<div className="post-lower">
-				<div className="post-reactions">
-					<PostListButton
-						reaction="positive"
-						onClick={(e) => {
-							upvote(e);
-						}}
-						icon={
-							<ArrowUp
-								size={20}
-								color={vote === 1 ? "green" : regularColor}
-								className="positive"
-							/>
-						}
-					/>
-					<span className="post-reaction-counter">{reactions + vote}</span>
-					<PostListButton
-						reaction="negative"
-						onClick={(e) => {
-							downvote(e);
-						}}
-						icon={
-							<ArrowDown
-								size={20}
-								color={vote === -1 ? "red" : regularColor}
-								className="negative"
-							/>
-						}
-					/>
+				<div className="post-upper">
+					<h3 className="post-title">{title}</h3>
 				</div>
-				<div className="post-comments">
-					<PostListButton
-						icon={<MessageSquare size={20} />}
-						content={commentsOnPost}
-					/>
+				<hr className="divider" />
+				<div className="post-body">{post.body.slice(0, 60) + "..."}</div>
+				<div className="post-lower">
+					<div className="post-reactions">
+						<PostListButton
+							reaction="positive"
+							onClick={(e) => {
+								upvote(e);
+							}}
+							icon={
+								<ArrowUp
+									size={20}
+									color={vote === 1 ? "green" : regularColor}
+									className="positive"
+								/>
+							}
+						/>
+						<span className="post-reaction-counter">{reactions + vote}</span>
+						<PostListButton
+							reaction="negative"
+							onClick={(e) => {
+								downvote(e);
+							}}
+							icon={
+								<ArrowDown
+									size={20}
+									color={vote === -1 ? "red" : regularColor}
+									className="negative"
+								/>
+							}
+						/>
+					</div>
+					<div className="post-comments">
+						<PostListButton
+							icon={<MessageSquare size={20} />}
+							content={commentsOnPost}
+						/>
+					</div>
+					<div className="post-report">
+						<PostListButton icon={<Flag size={20} />} content="Report" />
+					</div>
 				</div>
-				<div className="post-report">
-					<PostListButton icon={<Flag size={20} />} content="Report" />
-				</div>
-			</div>
-		</article>
+			</article>
+		</Link>
 	);
 }
 
@@ -260,12 +265,6 @@ function Post({ post, setpostUserId, username, reactionsImport }) {
 
 async function getComments() {
 	let result = await fetch("https://dummyjson.com/comments?limit=0");
-	let comments = await result.json();
-	return comments;
-}
-
-async function getCommentsOfPost(postId) {
-	let result = await fetch("https://dummyjson.com/comments/post/" + postId);
 	let comments = await result.json();
 	return comments;
 }

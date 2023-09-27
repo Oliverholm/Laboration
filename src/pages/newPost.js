@@ -11,18 +11,34 @@ export function NewPost({ users }) {
 	return <CreatePostViewFull users={users} />;
 }
 
-export function CreatePostViewFull({ form, setForm, handleChange, users }) {
+export function CreatePostViewFull({ users }) {
 	const [view, setView] = useState("post");
 	const [selectedUser, setSelectedUser] = useState(1);
-	const [newPostTitle, setNewPostTitle] = useState(null);
+	const [newPostTitle, setNewPostTitle] = useState("");
 	const [tags, setTags] = useState(["", "", ""]);
-	let content;
+	const [bodyContent, setBodyContent] = useState("");
+	let contentVariant;
 	if (view === "img") {
-		content = <CreatePostFullImage />;
+		contentVariant = (
+			<CreatePostFullImage
+				bodyContent={bodyContent}
+				setBodyContent={setBodyContent}
+			/>
+		);
 	} else if (view === "link") {
-		content = <CreatePostFullLink form={form} setForm={setForm} />;
+		contentVariant = (
+			<CreatePostFullLink
+				bodyContent={bodyContent}
+				setBodyContent={setBodyContent}
+			/>
+		);
 	} else if (view === "post") {
-		content = <CreatePostFullPost form={form} setForm={setForm} />;
+		contentVariant = (
+			<CreatePostFullPost
+				bodyContent={bodyContent}
+				setBodyContent={setBodyContent}
+			/>
+		);
 	}
 
 	return (
@@ -38,12 +54,12 @@ export function CreatePostViewFull({ form, setForm, handleChange, users }) {
 					<button onClick={() => setView("link")}>link</button>
 				</nav>
 				<span>
-					<form className="input-form-wrapper">
+					<form className="input-form-wrapper" onSubmit={handleSubmit}>
 						<label htmlFor="select-user" className="part-label">
 							Select User
 						</label>
 						<select
-							onChange={(e) => setSelectedUser(e.target.value)}
+							onChange={(e) => setSelectedUser(parseInt(e.target.value))}
 							name="Users"
 							id="select-user"
 							className="create-post-selector"
@@ -56,7 +72,7 @@ export function CreatePostViewFull({ form, setForm, handleChange, users }) {
 								);
 							})}
 						</select>
-						<InputComp
+						<input
 							type="text"
 							value={newPostTitle}
 							onChange={(e) => setNewPostTitle(e.target.value)}
@@ -64,7 +80,8 @@ export function CreatePostViewFull({ form, setForm, handleChange, users }) {
 							placeholder="Title"
 							className="input-test-full"
 						/>
-						{content}
+						<div>{contentVariant}</div>
+
 						<div className="datalist-div">
 							<DatalistInput
 								onChange={(e) => (tags[0] = e.target.value)}
@@ -77,7 +94,6 @@ export function CreatePostViewFull({ form, setForm, handleChange, users }) {
 							<DatalistInput
 								onChange={(e) => {
 									tags[2] = e.target.value;
-									console.log(tags);
 								}}
 								tag={tags[2]}
 							/>
@@ -90,4 +106,22 @@ export function CreatePostViewFull({ form, setForm, handleChange, users }) {
 			</div>
 		</div>
 	);
+
+	function handleSubmit(e) {
+		e.preventDefault();
+		console.log("submit-bby");
+
+		fetch("https://dummyjson.com/posts/add", {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({
+				title: newPostTitle,
+				userId: selectedUser,
+				bodytext: bodyContent,
+				tags: { tags },
+			}),
+		})
+			.then((res) => res.json())
+			.then(console.log);
+	}
 }

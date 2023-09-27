@@ -40,8 +40,10 @@
 }
 
 .post-header {
-	font-size: 2rem;
+	font-size: 5rem;
 	border-bottom: 2px solid white;
+	font-weight: bold;
+	color: var(--white);
 }
 
 .input-form-wrapper {

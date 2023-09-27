@@ -1,0 +1,30 @@
+.post-section {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-left: 1rem;
+	margin-top: 5rem;
+}
+
+.comment {
+	background-color: var(--light-gray);
+	margin: 1rem;
+	padding: 1rem;
+	color: var(--white);
+	font-family: "Roboto", sans-serif;
+	border-radius: 1rem;
+	width: 650px;
+}
+
+.comment-count {
+	background-color: var(--white);
+	color: var(--icon-faded);
+	display: inline-flex;
+	justify-content: center;
+	margin-left: 2rem;
+	gap: 1rem;
+	align-items: center;
+	border-radius: 15px;
+	padding: 0.25rem 0.5rem;
+	width: fit-content;
+}

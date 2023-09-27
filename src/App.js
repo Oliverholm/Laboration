@@ -54,7 +54,17 @@ function App() {
 								/>
 							}
 						/>
-						<Route path="/Post" />
+						<Route
+							path="/Post"
+							element={
+								<SinglePost
+									post={singlePost}
+									users={users}
+									setSinglePost={setSinglePost}
+									reactionsImport={singlePost.reactions}
+								/>
+							}
+						/>
 						<Route path="/Create" element={<NewPost users={users} />} />
 					</Routes>
 				</main>

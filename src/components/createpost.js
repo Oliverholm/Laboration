@@ -43,28 +43,32 @@ export function InputComp({ type, name, placeholder, className }) {
 	);
 }
 
-export function CreatePostFullImage({ form, setForm }) {
+export function CreatePostFullImage({ bodyContent, setBodyContent }) {
 	return (
 		<InputComp
 			type="file"
 			name="file"
 			placeholder="upload photo"
 			className="img-input"
+			value={bodyContent}
+			onChange={(e) => setBodyContent(e.target.value)}
 		/>
 	);
 }
 
-export function CreatePostFullLink({ form, setForm }) {
+export function CreatePostFullLink({ bodyContent, setBodyContent }) {
 	return (
 		<InputComp
 			type="url"
 			name="link"
 			placeholder="Add Link"
 			className="link-input"
+			value={bodyContent}
+			onChange={(e) => setBodyContent(e.target.value)}
 		/>
 	);
 }
-export function CreatePostFullPost({ form, setForm }) {
+export function CreatePostFullPost({ bodyContent, setBodyContent }) {
 	return (
 		<textarea
 			placeholder="Write a post"
@@ -72,6 +76,8 @@ export function CreatePostFullPost({ form, setForm }) {
 			rows="6"
 			cols="50"
 			className="post-input"
+			value={bodyContent}
+			onChange={(e) => setBodyContent(e.target.value)}
 		></textarea>
 	);
 }

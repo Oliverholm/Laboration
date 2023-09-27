@@ -47,7 +47,7 @@ export function Sidebar({ posts }) {
 					<button onClick={onClick} className="sb-dropdown-button">
 						<ArrowDown
 							className="arrow-icon"
-							style={{ transform: rotate, transition: "all 0.3s linear" }}
+							style={{ transform: rotate, transition: "all 0.2s linear" }}
 							onClick={handleRotate}
 						/>
 					</button>
