@@ -6,17 +6,19 @@ import { DatalistInput } from "../components/createpost";
 import { useState } from "react";
 import "../styles/CreatePost.css";
 import { BackButton } from "../components/backButton";
+import { useNavigate } from "react-router-dom";
 
-export function NewPost({ users }) {
-	return <CreatePostViewFull users={users} />;
+export function NewPost({ users, posts, setPosts }) {
+	return <CreatePostViewFull users={users} posts={posts} setPosts={setPosts} />;
 }
 
-export function CreatePostViewFull({ users }) {
+export function CreatePostViewFull({ users, posts, setPosts }) {
 	const [view, setView] = useState("post");
 	const [selectedUser, setSelectedUser] = useState(1);
 	const [newPostTitle, setNewPostTitle] = useState("");
 	const [tags, setTags] = useState(["", "", ""]);
 	const [bodyContent, setBodyContent] = useState("");
+	const navigate = useNavigate();
 	let contentVariant;
 	if (view === "img") {
 		contentVariant = (
@@ -107,9 +109,11 @@ export function CreatePostViewFull({ users }) {
 		</div>
 	);
 
+	// setState, filer för att få bort tomma index i array.
+
 	function handleSubmit(e) {
 		e.preventDefault();
-		console.log("submit-bby");
+		const filtedredTags = tags.filter((elem) => elem != "");
 
 		fetch("https://dummyjson.com/posts/add", {
 			method: "POST",
@@ -117,11 +121,19 @@ export function CreatePostViewFull({ users }) {
 			body: JSON.stringify({
 				title: newPostTitle,
 				userId: selectedUser,
-				bodytext: bodyContent,
-				tags: { tags },
+				body: bodyContent,
+				tags: filtedredTags,
+				reactions: 0,
 			}),
 		})
 			.then((res) => res.json())
-			.then(console.log);
+			.then((data) => {
+				console.log(data);
+				setPosts([data, ...posts]);
+				navigate("/");
+			});
 	}
 }
+// skapa ny post med fetchdata -> main -> ny post
+// navigate("/")
+// implementera rendera sök-tjosan

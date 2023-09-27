@@ -16,6 +16,10 @@
 	width: 650px;
 }
 
+.comment-counter-wrapper {
+	background-color: var-(--light-gray);
+}
+
 .comment-count {
 	background-color: var(--white);
 	color: var(--icon-faded);
@@ -27,4 +31,33 @@
 	border-radius: 15px;
 	padding: 0.25rem 0.5rem;
 	width: fit-content;
+}
+
+.comment-form {
+	background-color: var(--light-gray);
+	color: var(--icon-faded);
+	display: inline-flex;
+	justify-content: center;
+	margin-left: 2rem;
+	gap: 1rem;
+	align-items: center;
+	border-radius: 15px;
+	padding: 0.25rem 0.5rem;
+	width: fit-content;
+}
+
+.new-comment-label {
+	color: var(--white);
+}
+
+.new-comment-btn {
+	color: black;
+	height: 2.5rem;
+	border-radius: 15px;
+}
+
+.new-comment-input {
+	color: black;
+	height: 2rem;
+	border-radius: 15px;
 }

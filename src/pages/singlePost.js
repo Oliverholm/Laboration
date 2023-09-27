@@ -8,6 +8,8 @@ export function SinglePost({ post, users, reactionsImport, setSinglePost }) {
 	const [commentsOnPost, setCommentsOnPost] = useState([]);
 	const [vote, setVote] = useState(0);
 	const [reactions, setReactions] = useState(reactionsImport);
+	const [newComment, setNewComment] = useState("");
+	const [selectedUser, setSelectedUser] = useState(1);
 
 	const { id, userId, title, body, tags } = post;
 	const username = users[post.userId - 1].username;
@@ -49,7 +51,6 @@ export function SinglePost({ post, users, reactionsImport, setSinglePost }) {
 	useEffect(() => {
 		fetchComments();
 	}, []);
-	console.log(commentsOnPost);
 	return (
 		<section className="post-section">
 			<BackButton setSinglePost={setSinglePost} />
@@ -120,11 +121,41 @@ export function SinglePost({ post, users, reactionsImport, setSinglePost }) {
 								<h2>Inga Kommentarer</h2>
 							</div>
 						) : (
-							<div>
+							<div className="comment-counter">
 								<p className="comment-count">
 									<MessageSquare />
 									<span>{commentsOnPost.length}</span>
 								</p>
+
+								<form onSubmit={handleSubmit} className="comment-form">
+									<label htmlFor="select-user" className="new-comment-label">
+										Select User
+									</label>
+									<select
+										onChange={(e) => setSelectedUser(parseInt(e.target.value))}
+										name="Users"
+										id="select-user"
+										className="create-post-selector"
+									>
+										{users.map((user, idx) => {
+											return (
+												<option key={idx} value={user.id}>
+													{user.username}
+												</option>
+											);
+										})}
+									</select>
+									<input
+										className="new-comment-input"
+										placeholder="Comment?"
+										value={newComment}
+										onChange={(e) => setNewComment(e.target.value)}
+									/>
+									<button type="submit" className="new-comment-btn">
+										Send Comment
+									</button>
+								</form>
+
 								{commentsOnPost.map((comment, idx) => {
 									return (
 										<div key={idx} className="comment">
@@ -149,4 +180,23 @@ export function SinglePost({ post, users, reactionsImport, setSinglePost }) {
 			)}
 		</section>
 	);
+
+	function handleSubmit(e) {
+		e.preventDefault();
+
+		fetch("https://dummyjson.com/comments/add", {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({
+				body: newComment,
+				postId: post.id,
+				userId: selectedUser,
+			}),
+		})
+			.then((res) => res.json())
+			.then((data) => {
+				console.log(data);
+				setCommentsOnPost([data, ...commentsOnPost]);
+			});
+	}
 }

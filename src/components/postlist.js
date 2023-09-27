@@ -9,15 +9,49 @@ export function PostList({ users, posts, filteredResults, setSinglePost }) {
 	const [comments, setComments] = useState([]);
 	const [postUserId, setpostUserId] = useState();
 	const [openModal, setOpenModal] = useState(false);
-	const fetchComments = () => {
-		getComments().then((comments) => {
-			setComments(comments.comments);
-		});
+
+	const checkFilter = () => {
+		if (
+			(posts.length === 0 && filteredResults.length === 0) ||
+			users.length === 0
+		) {
+			return (
+				<div className="post-placeholder">
+					<h3>Posts haven't loaded yet...</h3>
+				</div>
+			);
+		} else if (filteredResults.length !== 0) {
+			filteredResults.map((post, i) => {
+				return (
+					<Post
+						key={i}
+						post={post}
+						setpostUserId={setpostUserId}
+						username={users[post.userId - 1].username}
+						reactionsImport={post.reactions}
+						comments={comments}
+						setSinglePost={setSinglePost}
+					/>
+				);
+			});
+		} else {
+			posts.map((post, i) => {
+				return (
+					<Post
+						key={i}
+						post={post}
+						setpostUserId={setpostUserId}
+						username={users[post.userId - 1].username}
+						reactionsImport={post.reactions}
+						comments={comments}
+						setSinglePost={setSinglePost}
+					/>
+				);
+			});
+		}
 	};
 
-	useEffect(() => {
-		fetchComments();
-	}, []);
+	useEffect(() => {}, []);
 	return (
 		<>
 			<ReportModal open={openModal} setOpen={setOpenModal} />
@@ -155,14 +189,6 @@ function Post({
 
 	const { id, userId, title, body, tags } = post;
 
-	const fetchCommentsOnPost = (id) => {
-		fetch("https://dummyjson.com/comments/post/" + id)
-			.then((res) => res.json())
-			.then((comment) => {
-				setCommentsOnPost(comment.total);
-			});
-	};
-
 	// onClick funktioner
 	const upvote = (e) => {
 		e.stopPropagation();
@@ -259,12 +285,4 @@ function Post({
 			</article>
 		</Link>
 	);
-}
-
-// fetch
-
-async function getComments() {
-	let result = await fetch("https://dummyjson.com/comments?limit=0");
-	let comments = await result.json();
-	return comments;
 }

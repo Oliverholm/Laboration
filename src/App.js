@@ -31,7 +31,11 @@ function App() {
 
 	useEffect(() => {
 		fetchUsers();
-		fetchPosts();
+		if (posts.length === 0) {
+			fetchPosts();
+		} else {
+			return;
+		}
 	}, []);
 
 	return (
@@ -65,23 +69,18 @@ function App() {
 								/>
 							}
 						/>
-						<Route path="/Create" element={<NewPost users={users} />} />
+						<Route
+							path="/Create"
+							element={
+								<NewPost users={users} posts={posts} setPosts={setPosts} />
+							}
+						/>
 					</Routes>
 				</main>
 			</div>
 		</Router>
 	);
 }
-
-/*
-							element={
-								<SinglePost
-									post={singlePost}
-									username={users[singlePost.userId - 1].username}
-									reactionsImport={singlePost.reactions}
-								/>
-							}
-*/
 
 async function getPosts() {
 	let result = await fetch("https://dummyjson.com/posts?limit=20");
