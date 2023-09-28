@@ -3,8 +3,6 @@ import "../styles/PostList.css";
 import { ArrowUp, ArrowDown, MessageSquare, Flag, X } from "react-feather";
 import { reportList } from "../utils/constants";
 import { Link } from "react-router-dom";
-import { BackButton } from "./backButton";
-import { Vote } from "./vote";
 
 // Main Komponent
 export function PostList({ users, posts, filteredResults, setSinglePost }) {
@@ -177,9 +175,7 @@ function Post({ post, username, reactionsImport, setSinglePost }) {
 				<div className="post-body">
 					{body.length > 60 ? body.slice(0, 60) + "..." : body}
 				</div>
-				<div className="post-lower">
-					<Vote reactions={reactionsImport} />
-				</div>
+				<div className="post-lower"></div>
 			</article>
 		</Link>
 	);
