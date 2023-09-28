@@ -150,6 +150,7 @@ export function SinglePost({ post, users, reactionsImport }) {
 										className="new-comment-input"
 										placeholder="Comment?"
 										value={newComment}
+										required
 										onChange={(e) => setNewComment(e.target.value)}
 									/>
 									<button type="submit" className="new-comment-btn">
