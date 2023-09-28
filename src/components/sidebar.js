@@ -11,12 +11,11 @@ import {
 } from "react-feather";
 import { categoriesList } from "../utils/constants";
 
-export function Sidebar({ posts }) {
+export function Sidebar({ posts, setFilteredResults }) {
 	const SBCIcon = <ArrowRight size="1em" className="icon" />;
 
 	const [isActive, setIsActive] = useState(true);
 	const [rotateArrow, setRotateArrow] = useState(false);
-	const [filterCategory, setFilterCategory] = useState("");
 
 	const rotate = rotateArrow ? "rotate(180deg)" : "rotate(0)";
 
@@ -27,16 +26,16 @@ export function Sidebar({ posts }) {
 		const filterPost = posts.filter((post) => {
 			return post.tags.includes(category.toLowerCase());
 		});
-		setFilterCategory(filterPost);
+		setFilteredResults(filterPost);
 	};
 
 	return (
 		<aside className="sb-container">
 			<section className="sb-top">
 				<ul>
-					<li className="sb-options">
+					<li className="sb-options" onClick={(e) => setFilteredResults([])}>
 						<TrendingUp size={"1.1em"} className="icon" />
-						&nbsp; Popular
+						&nbsp; All
 					</li>
 				</ul>
 				<hr className="bottom-border" />

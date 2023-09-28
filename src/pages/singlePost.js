@@ -2,24 +2,22 @@ import { useEffect, useState } from "react";
 import "../styles/SinglePost.css";
 import { BackButton } from "../components/backButton";
 import { PostListButton } from "../components/postlist";
-import { ArrowUp, ArrowDown, MessageSquare, Flag, X } from "react-feather";
+import { MessageSquare, Flag, X, ArrowDown, ArrowUp } from "react-feather";
 
-export function SinglePost({ post, users, reactionsImport, setSinglePost }) {
+export function SinglePost({ post, users, reactionsImport }) {
 	const [commentsOnPost, setCommentsOnPost] = useState([]);
-	const [vote, setVote] = useState(0);
-	const [reactions, setReactions] = useState(reactionsImport);
 	const [newComment, setNewComment] = useState("");
 	const [selectedUser, setSelectedUser] = useState(1);
+	const [vote, setVote] = useState(0);
+	const [reactions, setReactions] = useState(reactionsImport);
+	const regularColor = "rgba(75, 76, 79, 0.8)";
 
 	const { id, userId, title, body, tags } = post;
-	const username = users[post.userId - 1].username;
-	const avatarPath = `https://robohash.org/` + username + "?set=set4";
 
-	const commentAvatarPath = (username) => {
+	const AvatarPathFunc = (username) => {
 		const avatarPath = `https://robohash.org/` + username + "?set=set4";
 		return avatarPath;
 	};
-	const regularColor = "rgba(75, 76, 79, 0.8)";
 
 	const fetchComments = () => {
 		getCommentsOfPost().then((comments) => {
@@ -27,7 +25,6 @@ export function SinglePost({ post, users, reactionsImport, setSinglePost }) {
 		});
 	};
 
-	// onClick funktioner
 	const upvote = (e) => {
 		e.stopPropagation();
 		vote === 0 ? setVote(1) : setVote(0);
@@ -51,12 +48,12 @@ export function SinglePost({ post, users, reactionsImport, setSinglePost }) {
 	useEffect(() => {
 		fetchComments();
 	}, []);
+
 	return (
 		<section className="post-section">
-			<BackButton setSinglePost={setSinglePost} />
-			{post.length === 0 || users.length === 0 ? (
+			<BackButton />
+			{!post || !users ? (
 				<div className="post-placeholder">
-					<BackButton setSinglePost={setSinglePost} />
 					<h3>Posts haven't loaded yet...</h3>
 				</div>
 			) : (
@@ -64,9 +61,13 @@ export function SinglePost({ post, users, reactionsImport, setSinglePost }) {
 					<article className="post">
 						<div className="post-top">
 							<div className="post-user-container">
-								<img className="post-avatar" src={avatarPath} />
+								<img
+									className="post-avatar"
+									src={AvatarPathFunc(users[post.userId - 1].username)}
+								/>
 								<span className="post-username">
-									Posted by: <span>{toUpper(username)}</span>
+									Posted by:{" "}
+									<span>{toUpper(users[post.userId - 1].username)}</span>
 								</span>
 							</div>
 							<div className="tag-container">
@@ -162,7 +163,7 @@ export function SinglePost({ post, users, reactionsImport, setSinglePost }) {
 											<div className="post-user-container">
 												<img
 													className="post-avatar"
-													src={commentAvatarPath(comment.user.username)}
+													src={AvatarPathFunc(comment.user.username)}
 												/>
 												<span className="post-username">
 													Posted by:{" "}
@@ -183,7 +184,6 @@ export function SinglePost({ post, users, reactionsImport, setSinglePost }) {
 
 	function handleSubmit(e) {
 		e.preventDefault();
-
 		fetch("https://dummyjson.com/comments/add", {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },

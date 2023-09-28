@@ -3,65 +3,31 @@ import "../styles/PostList.css";
 import { ArrowUp, ArrowDown, MessageSquare, Flag, X } from "react-feather";
 import { reportList } from "../utils/constants";
 import { Link } from "react-router-dom";
+import { BackButton } from "./backButton";
+import { Vote } from "./vote";
 
 // Main Komponent
 export function PostList({ users, posts, filteredResults, setSinglePost }) {
 	const [comments, setComments] = useState([]);
 	const [postUserId, setpostUserId] = useState();
 	const [openModal, setOpenModal] = useState(false);
+	const [displayedPosts, setDisplayedPosts] = useState([]);
 
-	const checkFilter = () => {
-		if (
-			(posts.length === 0 && filteredResults.length === 0) ||
-			users.length === 0
-		) {
-			return (
-				<div className="post-placeholder">
-					<h3>Posts haven't loaded yet...</h3>
-				</div>
-			);
-		} else if (filteredResults.length !== 0) {
-			filteredResults.map((post, i) => {
-				return (
-					<Post
-						key={i}
-						post={post}
-						setpostUserId={setpostUserId}
-						username={users[post.userId - 1].username}
-						reactionsImport={post.reactions}
-						comments={comments}
-						setSinglePost={setSinglePost}
-					/>
-				);
-			});
-		} else {
-			posts.map((post, i) => {
-				return (
-					<Post
-						key={i}
-						post={post}
-						setpostUserId={setpostUserId}
-						username={users[post.userId - 1].username}
-						reactionsImport={post.reactions}
-						comments={comments}
-						setSinglePost={setSinglePost}
-					/>
-				);
-			});
-		}
-	};
+	useEffect(() => {
+		const postsToDisplay = filteredResults.length > 0 ? filteredResults : posts;
+		setDisplayedPosts(postsToDisplay);
+	}, [filteredResults, posts]);
 
-	useEffect(() => {}, []);
 	return (
 		<>
 			<ReportModal open={openModal} setOpen={setOpenModal} />
 			<section className="postlist">
-				{posts.length === 0 || users.length === 0 ? (
+				{!posts || !users ? (
 					<div className="post-placeholder">
 						<h3>Posts haven't loaded yet...</h3>
 					</div>
 				) : (
-					posts.map((post, i) => {
+					displayedPosts.map((post, i) => {
 						return (
 							<Post
 								key={i}
@@ -92,7 +58,7 @@ function ReportModal({ open, setOpen }) {
 				<button
 					className="modal-report-button"
 					onClick={() => {
-						setOpen(false);
+						setOpen(true);
 					}}
 				>
 					Report
@@ -174,44 +140,16 @@ export function PostListButton({ icon, content, onClick }) {
 		);
 }
 
-function Post({
-	post,
-	setpostUserId,
-	username,
-	reactionsImport,
-	setSinglePost,
-}) {
-	const [reactions, setReactions] = useState(reactionsImport);
-	const [vote, setVote] = useState(0);
-	const [commentsOnPost, setCommentsOnPost] = useState(0);
+function Post({ post, username, reactionsImport, setSinglePost }) {
 	const avatarPath = `https://robohash.org/` + username + "?set=set4";
 	const regularColor = "rgba(75, 76, 79, 0.8)";
 
-	const { id, userId, title, body, tags } = post;
+	const { title, body, tags } = post;
 
-	// onClick funktioner
-	const upvote = (e) => {
-		e.stopPropagation();
-		vote === 0 ? setVote(1) : setVote(0);
-	};
-	const downvote = (e) => {
-		e.stopPropagation();
-		vote === -1 ? setVote(0) : setVote(-1);
-	};
 	// uppercase funktion
 	const toUpper = (string) => {
 		return string.replace(/\b\w/g, (l) => l.toUpperCase());
 	};
-
-	const handleUsernameClick = (e) => {
-		e.stopPropagation();
-		setpostUserId(userId);
-		fetch("https://dummyjson.com/posts/user/" + userId).then((res) =>
-			res.json()
-		);
-	};
-
-	useEffect(() => {}, []);
 
 	return (
 		<Link to="/Post" onClick={() => setSinglePost(post)}>
@@ -221,12 +159,7 @@ function Post({
 						<img className="post-avatar" src={avatarPath} />
 						<span className="post-username">
 							Posted by:{" "}
-							<a
-								onClick={(e) => handleUsernameClick(e)}
-								className="post-username-anchor"
-							>
-								{toUpper(username)}
-							</a>
+							<span className="post-username-anchor">{toUpper(username)}</span>
 						</span>
 					</div>
 					<div className="tag-container">
@@ -241,46 +174,11 @@ function Post({
 					<h3 className="post-title">{title}</h3>
 				</div>
 				<hr className="divider" />
-				<div className="post-body">{post.body.slice(0, 60) + "..."}</div>
+				<div className="post-body">
+					{body.length > 60 ? body.slice(0, 60) + "..." : body}
+				</div>
 				<div className="post-lower">
-					<div className="post-reactions">
-						<PostListButton
-							reaction="positive"
-							onClick={(e) => {
-								upvote(e);
-							}}
-							icon={
-								<ArrowUp
-									size={20}
-									color={vote === 1 ? "green" : regularColor}
-									className="positive"
-								/>
-							}
-						/>
-						<span className="post-reaction-counter">{reactions + vote}</span>
-						<PostListButton
-							reaction="negative"
-							onClick={(e) => {
-								downvote(e);
-							}}
-							icon={
-								<ArrowDown
-									size={20}
-									color={vote === -1 ? "red" : regularColor}
-									className="negative"
-								/>
-							}
-						/>
-					</div>
-					<div className="post-comments">
-						<PostListButton
-							icon={<MessageSquare size={20} />}
-							content={commentsOnPost}
-						/>
-					</div>
-					<div className="post-report">
-						<PostListButton icon={<Flag size={20} />} content="Report" />
-					</div>
+					<Vote reactions={reactionsImport} />
 				</div>
 			</article>
 		</Link>

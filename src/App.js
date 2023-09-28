@@ -64,7 +64,6 @@ function App() {
 								<SinglePost
 									post={singlePost}
 									users={users}
-									setSinglePost={setSinglePost}
 									reactionsImport={singlePost.reactions}
 								/>
 							}
