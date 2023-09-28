@@ -56,9 +56,7 @@ const DropDown = () => {
 
 			<div className={`dropdown-menu ${open ? "active" : "inactive"}`}>
 				<h3>
-					Johan Nyman once said that Playstation portable with xbox live deluxe
-					edition is a must have in 2025 -Johan Nyman 2023 <br />{" "}
-					<span>Our founders</span>
+					Grupp 6 Laboration <br /> <span>Our founders</span>
 				</h3>
 				<ul>
 					<DropdownItem text={"Johan"} />

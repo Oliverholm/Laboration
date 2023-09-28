@@ -73,7 +73,7 @@ export function Sidebar({ posts, setFilteredResults }) {
 					<ul>
 						<li className="sb-options">
 							<Monitor className="icon" size="1.2em" />
-							&nbsp;&nbsp; About PSQ
+							&nbsp;&nbsp; About Us
 						</li>
 						<li className="sb-options">
 							<HelpCircle className="icon" size="1.2em" />
@@ -98,7 +98,7 @@ export function Sidebar({ posts, setFilteredResults }) {
 			</div>
 			<footer>
 				<span>
-					Public Square 2023 <br></br>All rights reserved
+					Grupp 6 2023 <br></br>All rights reserved
 				</span>
 			</footer>
 		</aside>

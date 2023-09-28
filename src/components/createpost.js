@@ -1,5 +1,5 @@
 //Jacob
-import React, { useState } from "react";
+import React from "react";
 import { categoriesList } from "../utils/constants";
 import "../styles/CreatePost.css";
 import { CreatePostViewFull } from "../pages/newPost";
@@ -78,6 +78,7 @@ export function CreatePostFullPost({ bodyContent, setBodyContent }) {
 			className="post-input"
 			value={bodyContent}
 			onChange={(e) => setBodyContent(e.target.value)}
+			required
 		></textarea>
 	);
 }

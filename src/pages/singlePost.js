@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import "../styles/SinglePost.css";
 import { BackButton } from "../components/backButton";
 import { PostListButton } from "../components/postlist";
-import { MessageSquare, Flag, X, ArrowDown, ArrowUp } from "react-feather";
+import { MessageSquare, Flag, ArrowDown, ArrowUp } from "react-feather";
 
 export function SinglePost({ post, users, reactionsImport }) {
 	const [commentsOnPost, setCommentsOnPost] = useState([]);

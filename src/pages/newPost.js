@@ -1,7 +1,6 @@
 import { CreatePostFullImage } from "../components/createpost";
 import { CreatePostFullLink } from "../components/createpost";
 import { CreatePostFullPost } from "../components/createpost";
-import { InputComp } from "../components/createpost";
 import { DatalistInput } from "../components/createpost";
 import { useState } from "react";
 import "../styles/CreatePost.css";
@@ -81,6 +80,7 @@ export function CreatePostViewFull({ users, posts, setPosts }) {
 							name="Title"
 							placeholder="Title"
 							className="input-test-full"
+							required
 						/>
 						<div>{contentVariant}</div>
 
@@ -128,7 +128,6 @@ export function CreatePostViewFull({ users, posts, setPosts }) {
 		})
 			.then((res) => res.json())
 			.then((data) => {
-				console.log(data);
 				setPosts([data, ...posts]);
 				navigate("/");
 			});

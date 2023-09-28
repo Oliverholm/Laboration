@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import "../styles/PostList.css";
-import { ArrowUp, ArrowDown, MessageSquare, Flag, X } from "react-feather";
+import { X } from "react-feather";
 import { reportList } from "../utils/constants";
 import { Link } from "react-router-dom";
 
@@ -138,9 +138,8 @@ export function PostListButton({ icon, content, onClick }) {
 		);
 }
 
-function Post({ post, username, reactionsImport, setSinglePost }) {
+function Post({ post, username, setSinglePost }) {
 	const avatarPath = `https://robohash.org/` + username + "?set=set4";
-	const regularColor = "rgba(75, 76, 79, 0.8)";
 
 	const { title, body, tags } = post;
 
